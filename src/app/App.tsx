@@ -61,7 +61,7 @@ function Header() {
           disabled={inLaunch || screen === 'briefing'}
           aria-label="Rocket Builder home"
         >
-          <img src="/favicon.svg" alt="" width={28} height={28} />
+          <img src={`${import.meta.env.BASE_URL}favicon.svg`} alt="" width={28} height={28} />
           <span className="text-lg">
             Rocket <span className="text-accent">Builder</span>
           </span>

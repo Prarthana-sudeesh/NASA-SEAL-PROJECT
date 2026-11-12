@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { ATTEMPTS_PER_RUN, DIFFICULTY } from '../config/difficulty.ts';
 import { planetsFor } from '../data/planets.ts';
 import { DIFFICULTIES } from '../data/types.ts';
@@ -6,6 +7,8 @@ import { useGame } from '../store/gameStore.ts';
 export function Difficulty() {
   const { run, startRun, go, playerName } = useGame();
   const inProgress = run && run.attempts.length < ATTEMPTS_PER_RUN ? run : null;
+  // In-page confirmation (browser confirm() dialogs are blocked in some hosts).
+  const [confirming, setConfirming] = useState<string | null>(null);
   return (
     <div className="flex flex-col gap-4">
       <header>
@@ -62,16 +65,23 @@ export function Difficulty() {
                 type="button"
                 className="btn btn-primary mt-auto"
                 onClick={() => {
-                  if (
-                    inProgress &&
-                    !window.confirm('Abandon your current campaign and start a new one?')
-                  )
+                  if (inProgress && confirming !== d) {
+                    setConfirming(d);
                     return;
+                  }
                   startRun(d);
                 }}
               >
-                Start {cfg.label} campaign
+                {inProgress && confirming === d
+                  ? 'Yes, abandon current campaign'
+                  : `Start ${cfg.label} campaign`}
               </button>
+              {inProgress && confirming === d && (
+                <p role="alert" className="text-xs text-warn">
+                  ! This abandons your {DIFFICULTY[inProgress.difficulty].label} campaign (
+                  {inProgress.attempts.length} missions flown). Click again to confirm.
+                </p>
+              )}
             </li>
           );
         })}
