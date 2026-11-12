@@ -1,0 +1,1769 @@
+{
+  "source": "NASA Exoplanet Archive",
+  "sourceUrl": "https://exoplanetarchive.ipac.caltech.edu/",
+  "table": "pscomppars",
+  "retrievedAt": "2026-11-12",
+  "query": "select pl_name,hostname,sy_dist,pl_rade,pl_bmasse,pl_eqt,pl_orbper,disc_year,discoverymethod,st_spectype,st_teff from pscomppars where sy_dist is not null and pl_rade is not null and pl_bmasse is not null and pl_eqt is not null and pl_rade <= 2.5",
+  "planets": [
+    {
+      "id": "proxima-cen-b",
+      "name": "Proxima Cen b",
+      "host": "Proxima Cen",
+      "difficulty": "easy",
+      "description": "The closest known exoplanet to our Solar System, circling the small red dwarf Proxima Centauri every 11 days. It sits in its star’s temperate zone, but frequent stellar flares may batter its surface.",
+      "distanceLy": {
+        "value": 4.2,
+        "source": "nasa"
+      },
+      "radiusEarth": {
+        "value": 1.02,
+        "source": "nasa"
+      },
+      "massEarth": {
+        "value": 1.055,
+        "source": "nasa"
+      },
+      "eqTempK": {
+        "value": 218,
+        "source": "nasa"
+      },
+      "orbitalPeriodDays": {
+        "value": 11.185,
+        "source": "nasa"
+      },
+      "discoveryYear": {
+        "value": 2016,
+        "source": "nasa"
+      },
+      "discoveryMethod": {
+        "value": "Radial Velocity",
+        "source": "nasa"
+      },
+      "starSpectralType": {
+        "value": "M5.5 V",
+        "source": "nasa"
+      },
+      "starTeffK": {
+        "value": 2900,
+        "source": "nasa"
+      },
+      "surfaceGravityG": {
+        "value": 1.01,
+        "source": "model"
+      },
+      "escapeVelocityKms": {
+        "value": 11.38,
+        "source": "model"
+      },
+      "atmosphere": {
+        "value": "earthlike",
+        "source": "model"
+      }
+    },
+    {
+      "id": "ross-128-b",
+      "name": "Ross 128 b",
+      "host": "Ross 128",
+      "difficulty": "easy",
+      "description": "A world slightly more massive than Earth orbiting a quiet red dwarf. Its star flares far less than many red dwarfs, making it one of the calmer nearby neighbourhoods.",
+      "distanceLy": {
+        "value": 11,
+        "source": "nasa"
+      },
+      "radiusEarth": {
+        "value": 1.11,
+        "source": "nasa"
+      },
+      "massEarth": {
+        "value": 1.4,
+        "source": "nasa"
+      },
+      "eqTempK": {
+        "value": 301,
+        "source": "nasa"
+      },
+      "orbitalPeriodDays": {
+        "value": 9.866,
+        "source": "nasa"
+      },
+      "discoveryYear": {
+        "value": 2017,
+        "source": "nasa"
+      },
+      "discoveryMethod": {
+        "value": "Radial Velocity",
+        "source": "nasa"
+      },
+      "starSpectralType": {
+        "value": "M4",
+        "source": "nasa"
+      },
+      "starTeffK": {
+        "value": 3192,
+        "source": "nasa"
+      },
+      "surfaceGravityG": {
+        "value": 1.14,
+        "source": "model"
+      },
+      "escapeVelocityKms": {
+        "value": 12.57,
+        "source": "model"
+      },
+      "atmosphere": {
+        "value": "earthlike",
+        "source": "model"
+      }
+    },
+    {
+      "id": "teegardens-star-b",
+      "name": "Teegarden's Star b",
+      "host": "Teegarden's Star",
+      "difficulty": "easy",
+      "description": "One of the most Earth-like planets by mass and temperature found so far. It whips around its tiny, dim star in under five days.",
+      "distanceLy": {
+        "value": 12.5,
+        "source": "nasa"
+      },
+      "radiusEarth": {
+        "value": 1.05,
+        "source": "nasa"
+      },
+      "massEarth": {
+        "value": 1.16,
+        "source": "nasa"
+      },
+      "eqTempK": {
+        "value": 277,
+        "source": "nasa"
+      },
+      "orbitalPeriodDays": {
+        "value": 4.906,
+        "source": "nasa"
+      },
+      "discoveryYear": {
+        "value": 2019,
+        "source": "nasa"
+      },
+      "discoveryMethod": {
+        "value": "Radial Velocity",
+        "source": "nasa"
+      },
+      "starSpectralType": {
+        "value": "M7.0 V",
+        "source": "nasa"
+      },
+      "starTeffK": {
+        "value": 3034,
+        "source": "nasa"
+      },
+      "surfaceGravityG": {
+        "value": 1.05,
+        "source": "model"
+      },
+      "escapeVelocityKms": {
+        "value": 11.76,
+        "source": "model"
+      },
+      "atmosphere": {
+        "value": "earthlike",
+        "source": "model"
+      }
+    },
+    {
+      "id": "teegardens-star-c",
+      "name": "Teegarden's Star c",
+      "host": "Teegarden's Star",
+      "difficulty": "easy",
+      "description": "The outer sibling of Teegarden’s Star b, receiving a little less starlight. Expect a colder, darker sky lit by a faint red sun.",
+      "distanceLy": {
+        "value": 12.5,
+        "source": "nasa"
+      },
+      "radiusEarth": {
+        "value": 1.02,
+        "source": "nasa"
+      },
+      "massEarth": {
+        "value": 1.05,
+        "source": "nasa"
+      },
+      "eqTempK": {
+        "value": 209,
+        "source": "nasa"
+      },
+      "orbitalPeriodDays": {
+        "value": 11.416,
+        "source": "nasa"
+      },
+      "discoveryYear": {
+        "value": 2019,
+        "source": "nasa"
+      },
+      "discoveryMethod": {
+        "value": "Radial Velocity",
+        "source": "nasa"
+      },
+      "starSpectralType": {
+        "value": "M7.0 V",
+        "source": "nasa"
+      },
+      "starTeffK": {
+        "value": 3034,
+        "source": "nasa"
+      },
+      "surfaceGravityG": {
+        "value": 1.01,
+        "source": "model"
+      },
+      "escapeVelocityKms": {
+        "value": 11.35,
+        "source": "model"
+      },
+      "atmosphere": {
+        "value": "earthlike",
+        "source": "model"
+      }
+    },
+    {
+      "id": "gj-1061-c",
+      "name": "GJ 1061 c",
+      "host": "GJ 1061",
+      "difficulty": "easy",
+      "description": "A rocky world in a three-planet system around a nearby red dwarf. It orbits inside its star’s temperate zone, completing a year in under a week.",
+      "distanceLy": {
+        "value": 12,
+        "source": "nasa"
+      },
+      "radiusEarth": {
+        "value": 1.19,
+        "source": "nasa"
+      },
+      "massEarth": {
+        "value": 1.81,
+        "source": "nasa"
+      },
+      "eqTempK": {
+        "value": 304,
+        "source": "nasa"
+      },
+      "orbitalPeriodDays": {
+        "value": 6.682,
+        "source": "nasa"
+      },
+      "discoveryYear": {
+        "value": 2020,
+        "source": "nasa"
+      },
+      "discoveryMethod": {
+        "value": "Radial Velocity",
+        "source": "nasa"
+      },
+      "starSpectralType": {
+        "value": "M5.5 V",
+        "source": "nasa"
+      },
+      "starTeffK": {
+        "value": 2953,
+        "source": "nasa"
+      },
+      "surfaceGravityG": {
+        "value": 1.28,
+        "source": "model"
+      },
+      "escapeVelocityKms": {
+        "value": 13.8,
+        "source": "model"
+      },
+      "atmosphere": {
+        "value": "earthlike",
+        "source": "model"
+      }
+    },
+    {
+      "id": "gj-1061-d",
+      "name": "GJ 1061 d",
+      "host": "GJ 1061",
+      "difficulty": "easy",
+      "description": "The outermost known planet of GJ 1061, sitting on the cool edge of its star’s temperate zone. A good test of cold-weather engineering close to home.",
+      "distanceLy": {
+        "value": 12,
+        "source": "nasa"
+      },
+      "radiusEarth": {
+        "value": 1.16,
+        "source": "nasa"
+      },
+      "massEarth": {
+        "value": 1.67,
+        "source": "nasa"
+      },
+      "eqTempK": {
+        "value": 242,
+        "source": "nasa"
+      },
+      "orbitalPeriodDays": {
+        "value": 13.066,
+        "source": "nasa"
+      },
+      "discoveryYear": {
+        "value": 2020,
+        "source": "nasa"
+      },
+      "discoveryMethod": {
+        "value": "Radial Velocity",
+        "source": "nasa"
+      },
+      "starSpectralType": {
+        "value": "M5.5 V",
+        "source": "nasa"
+      },
+      "starTeffK": {
+        "value": 2953,
+        "source": "nasa"
+      },
+      "surfaceGravityG": {
+        "value": 1.24,
+        "source": "model"
+      },
+      "escapeVelocityKms": {
+        "value": 13.43,
+        "source": "model"
+      },
+      "atmosphere": {
+        "value": "earthlike",
+        "source": "model"
+      }
+    },
+    {
+      "id": "wolf-1061-c",
+      "name": "Wolf 1061 c",
+      "host": "Wolf 1061",
+      "difficulty": "easy",
+      "description": "A super-Earth about 14 light-years away in the constellation Ophiuchus. It may be tidally locked, with one side in permanent daylight.",
+      "distanceLy": {
+        "value": 14,
+        "source": "nasa"
+      },
+      "radiusEarth": {
+        "value": 1.66,
+        "source": "nasa"
+      },
+      "massEarth": {
+        "value": 3.41,
+        "source": "nasa"
+      },
+      "eqTempK": {
+        "value": 299,
+        "source": "nasa"
+      },
+      "orbitalPeriodDays": {
+        "value": 17.872,
+        "source": "nasa"
+      },
+      "discoveryYear": {
+        "value": 2015,
+        "source": "nasa"
+      },
+      "discoveryMethod": {
+        "value": "Radial Velocity",
+        "source": "nasa"
+      },
+      "starSpectralType": {
+        "value": "M3.5",
+        "source": "nasa"
+      },
+      "starTeffK": {
+        "value": 3342,
+        "source": "nasa"
+      },
+      "surfaceGravityG": {
+        "value": 1.24,
+        "source": "model"
+      },
+      "escapeVelocityKms": {
+        "value": 16.04,
+        "source": "model"
+      },
+      "atmosphere": {
+        "value": "thick",
+        "source": "model"
+      }
+    },
+    {
+      "id": "gj-1002-b",
+      "name": "GJ 1002 b",
+      "host": "GJ 1002",
+      "difficulty": "easy",
+      "description": "A close-to-Earth-mass planet orbiting a cool red dwarf just under 16 light-years away. Its star is unusually quiet, a bonus for future visitors.",
+      "distanceLy": {
+        "value": 15.8,
+        "source": "nasa"
+      },
+      "radiusEarth": {
+        "value": 1.03,
+        "source": "nasa"
+      },
+      "massEarth": {
+        "value": 1.08,
+        "source": "nasa"
+      },
+      "eqTempK": {
+        "value": 231,
+        "source": "nasa"
+      },
+      "orbitalPeriodDays": {
+        "value": 10.347,
+        "source": "nasa"
+      },
+      "discoveryYear": {
+        "value": 2022,
+        "source": "nasa"
+      },
+      "discoveryMethod": {
+        "value": "Radial Velocity",
+        "source": "nasa"
+      },
+      "starSpectralType": {
+        "value": "M5.5 V",
+        "source": "nasa"
+      },
+      "starTeffK": {
+        "value": 3024,
+        "source": "nasa"
+      },
+      "surfaceGravityG": {
+        "value": 1.02,
+        "source": "model"
+      },
+      "escapeVelocityKms": {
+        "value": 11.46,
+        "source": "model"
+      },
+      "atmosphere": {
+        "value": "earthlike",
+        "source": "model"
+      }
+    },
+    {
+      "id": "gj-273-b",
+      "name": "GJ 273 b",
+      "host": "GJ 273",
+      "difficulty": "easy",
+      "description": "Also known as Luyten b, a super-Earth in the temperate zone of a red dwarf about 19 light-years from us. Its heavier gravity makes take-off a little harder.",
+      "distanceLy": {
+        "value": 19.3,
+        "source": "nasa"
+      },
+      "radiusEarth": {
+        "value": 1.51,
+        "source": "nasa"
+      },
+      "massEarth": {
+        "value": 2.89,
+        "source": "nasa"
+      },
+      "eqTempK": {
+        "value": 292,
+        "source": "nasa"
+      },
+      "orbitalPeriodDays": {
+        "value": 18.65,
+        "source": "nasa"
+      },
+      "discoveryYear": {
+        "value": 2017,
+        "source": "nasa"
+      },
+      "discoveryMethod": {
+        "value": "Radial Velocity",
+        "source": "nasa"
+      },
+      "starSpectralType": {
+        "value": "M3.5",
+        "source": "nasa"
+      },
+      "starTeffK": {
+        "value": 3382,
+        "source": "nasa"
+      },
+      "surfaceGravityG": {
+        "value": 1.27,
+        "source": "model"
+      },
+      "escapeVelocityKms": {
+        "value": 15.48,
+        "source": "model"
+      },
+      "atmosphere": {
+        "value": "earthlike",
+        "source": "model"
+      }
+    },
+    {
+      "id": "tau-cet-f",
+      "name": "tau Cet f",
+      "host": "tau Cet",
+      "difficulty": "easy",
+      "description": "A candidate super-Earth orbiting tau Ceti, a Sun-like star visible to the naked eye. It sits near the cold outer edge of the star’s habitable zone.",
+      "distanceLy": {
+        "value": 11.8,
+        "source": "nasa"
+      },
+      "radiusEarth": {
+        "value": 1.81,
+        "source": "nasa"
+      },
+      "massEarth": {
+        "value": 3.93,
+        "source": "nasa"
+      },
+      "eqTempK": {
+        "value": 202,
+        "source": "nasa"
+      },
+      "orbitalPeriodDays": {
+        "value": 636.13,
+        "source": "nasa"
+      },
+      "discoveryYear": {
+        "value": 2017,
+        "source": "nasa"
+      },
+      "discoveryMethod": {
+        "value": "Radial Velocity",
+        "source": "nasa"
+      },
+      "starSpectralType": {
+        "value": "G8.5V",
+        "source": "nasa"
+      },
+      "starTeffK": {
+        "value": 5310,
+        "source": "nasa"
+      },
+      "surfaceGravityG": {
+        "value": 1.2,
+        "source": "model"
+      },
+      "escapeVelocityKms": {
+        "value": 16.49,
+        "source": "model"
+      },
+      "atmosphere": {
+        "value": "thick",
+        "source": "model"
+      }
+    },
+    {
+      "id": "trappist-1-d",
+      "name": "TRAPPIST-1 d",
+      "host": "TRAPPIST-1",
+      "difficulty": "medium",
+      "description": "The smallest of TRAPPIST-1’s worlds in this game, with under half of Earth’s mass. Low gravity makes landing gentle, but it may hold little air.",
+      "distanceLy": {
+        "value": 40.5,
+        "source": "nasa"
+      },
+      "radiusEarth": {
+        "value": 0.788,
+        "source": "nasa"
+      },
+      "massEarth": {
+        "value": 0.388,
+        "source": "nasa"
+      },
+      "eqTempK": {
+        "value": 286,
+        "source": "nasa"
+      },
+      "orbitalPeriodDays": {
+        "value": 4.049,
+        "source": "nasa"
+      },
+      "discoveryYear": {
+        "value": 2016,
+        "source": "nasa"
+      },
+      "discoveryMethod": {
+        "value": "Transit",
+        "source": "nasa"
+      },
+      "starSpectralType": {
+        "value": "M8.0 V",
+        "source": "nasa"
+      },
+      "starTeffK": {
+        "value": 2566,
+        "source": "nasa"
+      },
+      "surfaceGravityG": {
+        "value": 0.62,
+        "source": "model"
+      },
+      "escapeVelocityKms": {
+        "value": 7.85,
+        "source": "model"
+      },
+      "atmosphere": {
+        "value": "thin",
+        "source": "model"
+      }
+    },
+    {
+      "id": "trappist-1-e",
+      "name": "TRAPPIST-1 e",
+      "host": "TRAPPIST-1",
+      "difficulty": "medium",
+      "description": "Often called the most promising TRAPPIST-1 planet for liquid water. It is rocky, a bit smaller than Earth, and among seven worlds packed around one ultra-cool star.",
+      "distanceLy": {
+        "value": 40.5,
+        "source": "nasa"
+      },
+      "radiusEarth": {
+        "value": 0.92,
+        "source": "nasa"
+      },
+      "massEarth": {
+        "value": 0.692,
+        "source": "nasa"
+      },
+      "eqTempK": {
+        "value": 250,
+        "source": "nasa"
+      },
+      "orbitalPeriodDays": {
+        "value": 6.101,
+        "source": "nasa"
+      },
+      "discoveryYear": {
+        "value": 2017,
+        "source": "nasa"
+      },
+      "discoveryMethod": {
+        "value": "Transit",
+        "source": "nasa"
+      },
+      "starSpectralType": {
+        "value": "M8.0 V",
+        "source": "nasa"
+      },
+      "starTeffK": {
+        "value": 2566,
+        "source": "nasa"
+      },
+      "surfaceGravityG": {
+        "value": 0.82,
+        "source": "model"
+      },
+      "escapeVelocityKms": {
+        "value": 9.7,
+        "source": "model"
+      },
+      "atmosphere": {
+        "value": "earthlike",
+        "source": "model"
+      }
+    },
+    {
+      "id": "trappist-1-f",
+      "name": "TRAPPIST-1 f",
+      "host": "TRAPPIST-1",
+      "difficulty": "medium",
+      "description": "A nearly Earth-sized world in the TRAPPIST-1 system, cooler than its neighbour e. Its sky would show the other planets as large, bright discs.",
+      "distanceLy": {
+        "value": 40.5,
+        "source": "nasa"
+      },
+      "radiusEarth": {
+        "value": 1.045,
+        "source": "nasa"
+      },
+      "massEarth": {
+        "value": 1.039,
+        "source": "nasa"
+      },
+      "eqTempK": {
+        "value": 218,
+        "source": "nasa"
+      },
+      "orbitalPeriodDays": {
+        "value": 9.208,
+        "source": "nasa"
+      },
+      "discoveryYear": {
+        "value": 2017,
+        "source": "nasa"
+      },
+      "discoveryMethod": {
+        "value": "Transit",
+        "source": "nasa"
+      },
+      "starSpectralType": {
+        "value": "M8.0 V",
+        "source": "nasa"
+      },
+      "starTeffK": {
+        "value": 2566,
+        "source": "nasa"
+      },
+      "surfaceGravityG": {
+        "value": 0.95,
+        "source": "model"
+      },
+      "escapeVelocityKms": {
+        "value": 11.16,
+        "source": "model"
+      },
+      "atmosphere": {
+        "value": "earthlike",
+        "source": "model"
+      }
+    },
+    {
+      "id": "trappist-1-g",
+      "name": "TRAPPIST-1 g",
+      "host": "TRAPPIST-1",
+      "difficulty": "medium",
+      "description": "One of the larger TRAPPIST-1 planets, orbiting on the chilly side of the system’s temperate zone. Its year lasts just over 12 Earth days.",
+      "distanceLy": {
+        "value": 40.5,
+        "source": "nasa"
+      },
+      "radiusEarth": {
+        "value": 1.129,
+        "source": "nasa"
+      },
+      "massEarth": {
+        "value": 1.321,
+        "source": "nasa"
+      },
+      "eqTempK": {
+        "value": 197,
+        "source": "nasa"
+      },
+      "orbitalPeriodDays": {
+        "value": 12.352,
+        "source": "nasa"
+      },
+      "discoveryYear": {
+        "value": 2017,
+        "source": "nasa"
+      },
+      "discoveryMethod": {
+        "value": "Transit",
+        "source": "nasa"
+      },
+      "starSpectralType": {
+        "value": "M8.0 V",
+        "source": "nasa"
+      },
+      "starTeffK": {
+        "value": 2566,
+        "source": "nasa"
+      },
+      "surfaceGravityG": {
+        "value": 1.04,
+        "source": "model"
+      },
+      "escapeVelocityKms": {
+        "value": 12.1,
+        "source": "model"
+      },
+      "atmosphere": {
+        "value": "earthlike",
+        "source": "model"
+      }
+    },
+    {
+      "id": "lhs-1140-b",
+      "name": "LHS 1140 b",
+      "host": "LHS 1140",
+      "difficulty": "medium",
+      "description": "A dense super-Earth roughly 49 light-years away, one of the best targets for studying a temperate world’s atmosphere. Its strong gravity punishes heavy rockets.",
+      "distanceLy": {
+        "value": 48.9,
+        "source": "nasa"
+      },
+      "radiusEarth": {
+        "value": 1.73,
+        "source": "nasa"
+      },
+      "massEarth": {
+        "value": 5.6,
+        "source": "nasa"
+      },
+      "eqTempK": {
+        "value": 226,
+        "source": "nasa"
+      },
+      "orbitalPeriodDays": {
+        "value": 24.737,
+        "source": "nasa"
+      },
+      "discoveryYear": {
+        "value": 2017,
+        "source": "nasa"
+      },
+      "discoveryMethod": {
+        "value": "Transit",
+        "source": "nasa"
+      },
+      "starSpectralType": {
+        "value": "M4.5 V",
+        "source": "nasa"
+      },
+      "starTeffK": {
+        "value": 3096,
+        "source": "nasa"
+      },
+      "surfaceGravityG": {
+        "value": 1.87,
+        "source": "model"
+      },
+      "escapeVelocityKms": {
+        "value": 20.13,
+        "source": "model"
+      },
+      "atmosphere": {
+        "value": "thick",
+        "source": "model"
+      }
+    },
+    {
+      "id": "lhs-1140-c",
+      "name": "LHS 1140 c",
+      "host": "LHS 1140",
+      "difficulty": "medium",
+      "description": "The inner, warmer companion of LHS 1140 b. It circles its red dwarf in under four days.",
+      "distanceLy": {
+        "value": 48.9,
+        "source": "nasa"
+      },
+      "radiusEarth": {
+        "value": 1.272,
+        "source": "nasa"
+      },
+      "massEarth": {
+        "value": 1.91,
+        "source": "nasa"
+      },
+      "eqTempK": {
+        "value": 422,
+        "source": "nasa"
+      },
+      "orbitalPeriodDays": {
+        "value": 3.778,
+        "source": "nasa"
+      },
+      "discoveryYear": {
+        "value": 2018,
+        "source": "nasa"
+      },
+      "discoveryMethod": {
+        "value": "Transit",
+        "source": "nasa"
+      },
+      "starSpectralType": {
+        "value": "M4.5 V",
+        "source": "nasa"
+      },
+      "starTeffK": {
+        "value": 3096,
+        "source": "nasa"
+      },
+      "surfaceGravityG": {
+        "value": 1.18,
+        "source": "model"
+      },
+      "escapeVelocityKms": {
+        "value": 13.71,
+        "source": "model"
+      },
+      "atmosphere": {
+        "value": "earthlike",
+        "source": "model"
+      }
+    },
+    {
+      "id": "gliese-12-b",
+      "name": "Gliese 12 b",
+      "host": "Gliese 12",
+      "difficulty": "medium",
+      "description": "A world just under Earth’s size, found by NASA’s TESS mission in 2024. It is warmer than Earth but cooler than most transiting planets this close to us.",
+      "distanceLy": {
+        "value": 39.8,
+        "source": "nasa"
+      },
+      "radiusEarth": {
+        "value": 0.93,
+        "source": "nasa"
+      },
+      "massEarth": {
+        "value": 0.95,
+        "source": "nasa"
+      },
+      "eqTempK": {
+        "value": 315,
+        "source": "nasa"
+      },
+      "orbitalPeriodDays": {
+        "value": 12.761,
+        "source": "nasa"
+      },
+      "discoveryYear": {
+        "value": 2024,
+        "source": "nasa"
+      },
+      "discoveryMethod": {
+        "value": "Transit",
+        "source": "nasa"
+      },
+      "starSpectralType": {
+        "value": "M4 V",
+        "source": "nasa"
+      },
+      "starTeffK": {
+        "value": 3328,
+        "source": "nasa"
+      },
+      "surfaceGravityG": {
+        "value": 1.1,
+        "source": "model"
+      },
+      "escapeVelocityKms": {
+        "value": 11.31,
+        "source": "model"
+      },
+      "atmosphere": {
+        "value": "earthlike",
+        "source": "model"
+      }
+    },
+    {
+      "id": "wolf-1069-b",
+      "name": "Wolf 1069 b",
+      "host": "Wolf 1069",
+      "difficulty": "medium",
+      "description": "An Earth-mass planet around a red dwarf about 31 light-years away. It is probably tidally locked, with a permanent day side and night side.",
+      "distanceLy": {
+        "value": 31.3,
+        "source": "nasa"
+      },
+      "radiusEarth": {
+        "value": 1.08,
+        "source": "nasa"
+      },
+      "massEarth": {
+        "value": 1.26,
+        "source": "nasa"
+      },
+      "eqTempK": {
+        "value": 250,
+        "source": "nasa"
+      },
+      "orbitalPeriodDays": {
+        "value": 15.564,
+        "source": "nasa"
+      },
+      "discoveryYear": {
+        "value": 2023,
+        "source": "nasa"
+      },
+      "discoveryMethod": {
+        "value": "Radial Velocity",
+        "source": "nasa"
+      },
+      "starSpectralType": {
+        "value": "M5.0 V",
+        "source": "nasa"
+      },
+      "starTeffK": {
+        "value": 3158,
+        "source": "nasa"
+      },
+      "surfaceGravityG": {
+        "value": 1.08,
+        "source": "model"
+      },
+      "escapeVelocityKms": {
+        "value": 12.09,
+        "source": "model"
+      },
+      "atmosphere": {
+        "value": "earthlike",
+        "source": "model"
+      }
+    },
+    {
+      "id": "l-98-59-f",
+      "name": "L 98-59 f",
+      "host": "L 98-59",
+      "difficulty": "medium",
+      "description": "The outermost planet in the busy L 98-59 system, detected by the wobble it causes in its star. It sits in the temperate zone.",
+      "distanceLy": {
+        "value": 34.6,
+        "source": "nasa"
+      },
+      "radiusEarth": {
+        "value": 1.48,
+        "source": "nasa"
+      },
+      "massEarth": {
+        "value": 2.8,
+        "source": "nasa"
+      },
+      "eqTempK": {
+        "value": 285,
+        "source": "nasa"
+      },
+      "orbitalPeriodDays": {
+        "value": 23.064,
+        "source": "nasa"
+      },
+      "discoveryYear": {
+        "value": 2025,
+        "source": "nasa"
+      },
+      "discoveryMethod": {
+        "value": "Radial Velocity",
+        "source": "nasa"
+      },
+      "starSpectralType": {
+        "value": "M3 V",
+        "source": "nasa"
+      },
+      "starTeffK": {
+        "value": 3415,
+        "source": "nasa"
+      },
+      "surfaceGravityG": {
+        "value": 1.28,
+        "source": "model"
+      },
+      "escapeVelocityKms": {
+        "value": 15.39,
+        "source": "model"
+      },
+      "atmosphere": {
+        "value": "earthlike",
+        "source": "model"
+      }
+    },
+    {
+      "id": "gj-1132-c",
+      "name": "GJ 1132 c",
+      "host": "GJ 1132",
+      "difficulty": "medium",
+      "description": "A super-Earth that orbits further out than its scorching sibling GJ 1132 b. It is temperate, but its heavier gravity means a costly ascent.",
+      "distanceLy": {
+        "value": 41.1,
+        "source": "nasa"
+      },
+      "radiusEarth": {
+        "value": 1.52,
+        "source": "nasa"
+      },
+      "massEarth": {
+        "value": 2.91,
+        "source": "nasa"
+      },
+      "eqTempK": {
+        "value": 300,
+        "source": "nasa"
+      },
+      "orbitalPeriodDays": {
+        "value": 8.929,
+        "source": "nasa"
+      },
+      "discoveryYear": {
+        "value": 2018,
+        "source": "nasa"
+      },
+      "discoveryMethod": {
+        "value": "Radial Velocity",
+        "source": "nasa"
+      },
+      "starSpectralType": {
+        "value": "M4.5 V",
+        "source": "nasa"
+      },
+      "starTeffK": {
+        "value": 3090,
+        "source": "nasa"
+      },
+      "surfaceGravityG": {
+        "value": 1.26,
+        "source": "model"
+      },
+      "escapeVelocityKms": {
+        "value": 15.48,
+        "source": "model"
+      },
+      "atmosphere": {
+        "value": "earthlike",
+        "source": "model"
+      }
+    },
+    {
+      "id": "55-cnc-e",
+      "name": "55 Cnc e",
+      "host": "55 Cnc",
+      "difficulty": "hard",
+      "description": "A super-hot super-Earth that circles its star in less than a day. Its surface may be covered in molten rock, a true lava world.",
+      "distanceLy": {
+        "value": 41,
+        "source": "nasa"
+      },
+      "radiusEarth": {
+        "value": 1.875,
+        "source": "nasa"
+      },
+      "massEarth": {
+        "value": 7.99,
+        "source": "nasa"
+      },
+      "eqTempK": {
+        "value": 1958,
+        "source": "nasa"
+      },
+      "orbitalPeriodDays": {
+        "value": 0.737,
+        "source": "nasa"
+      },
+      "discoveryYear": {
+        "value": 2004,
+        "source": "nasa"
+      },
+      "discoveryMethod": {
+        "value": "Radial Velocity",
+        "source": "nasa"
+      },
+      "starSpectralType": {
+        "value": "G8 V",
+        "source": "nasa"
+      },
+      "starTeffK": {
+        "value": 5172,
+        "source": "nasa"
+      },
+      "surfaceGravityG": {
+        "value": 2.27,
+        "source": "model"
+      },
+      "escapeVelocityKms": {
+        "value": 23.1,
+        "source": "model"
+      },
+      "atmosphere": {
+        "value": "scorching",
+        "source": "model"
+      }
+    },
+    {
+      "id": "k2-141-b",
+      "name": "K2-141 b",
+      "host": "K2-141",
+      "difficulty": "hard",
+      "description": "A lava planet so close to its star that the day side may rain vaporised rock. A year here lasts under seven hours.",
+      "distanceLy": {
+        "value": 201.8,
+        "source": "nasa"
+      },
+      "radiusEarth": {
+        "value": 1.51,
+        "source": "nasa"
+      },
+      "massEarth": {
+        "value": 4.97,
+        "source": "nasa"
+      },
+      "eqTempK": {
+        "value": 2103,
+        "source": "nasa"
+      },
+      "orbitalPeriodDays": {
+        "value": 0.28,
+        "source": "nasa"
+      },
+      "discoveryYear": {
+        "value": 2018,
+        "source": "nasa"
+      },
+      "discoveryMethod": {
+        "value": "Transit",
+        "source": "nasa"
+      },
+      "starSpectralType": {
+        "value": "K7 V",
+        "source": "nasa"
+      },
+      "starTeffK": {
+        "value": 4570,
+        "source": "nasa"
+      },
+      "surfaceGravityG": {
+        "value": 2.18,
+        "source": "model"
+      },
+      "escapeVelocityKms": {
+        "value": 20.3,
+        "source": "model"
+      },
+      "atmosphere": {
+        "value": "scorching",
+        "source": "model"
+      }
+    },
+    {
+      "id": "kepler-10-b",
+      "name": "Kepler-10 b",
+      "host": "Kepler-10",
+      "difficulty": "hard",
+      "description": "The first rocky planet confirmed by NASA’s Kepler mission. It orbits its star in under a day, roasting at over 2,000 K.",
+      "distanceLy": {
+        "value": 605,
+        "source": "nasa"
+      },
+      "radiusEarth": {
+        "value": 1.47,
+        "source": "nasa"
+      },
+      "massEarth": {
+        "value": 3.24,
+        "source": "nasa"
+      },
+      "eqTempK": {
+        "value": 2188,
+        "source": "nasa"
+      },
+      "orbitalPeriodDays": {
+        "value": 0.837,
+        "source": "nasa"
+      },
+      "discoveryYear": {
+        "value": 2011,
+        "source": "nasa"
+      },
+      "discoveryMethod": {
+        "value": "Transit",
+        "source": "nasa"
+      },
+      "starSpectralType": {
+        "value": null,
+        "source": "nasa"
+      },
+      "starTeffK": {
+        "value": 5708,
+        "source": "nasa"
+      },
+      "surfaceGravityG": {
+        "value": 1.5,
+        "source": "model"
+      },
+      "escapeVelocityKms": {
+        "value": 16.61,
+        "source": "model"
+      },
+      "atmosphere": {
+        "value": "scorching",
+        "source": "model"
+      }
+    },
+    {
+      "id": "corot-7-b",
+      "name": "CoRoT-7 b",
+      "host": "CoRoT-7",
+      "difficulty": "hard",
+      "description": "One of the first rocky exoplanets ever found. It is hot enough that its day side could be an ocean of magma.",
+      "distanceLy": {
+        "value": 521.5,
+        "source": "nasa"
+      },
+      "radiusEarth": {
+        "value": 1.681,
+        "source": "nasa"
+      },
+      "massEarth": {
+        "value": 4.077,
+        "source": "nasa"
+      },
+      "eqTempK": {
+        "value": 1756,
+        "source": "nasa"
+      },
+      "orbitalPeriodDays": {
+        "value": 0.854,
+        "source": "nasa"
+      },
+      "discoveryYear": {
+        "value": 2009,
+        "source": "nasa"
+      },
+      "discoveryMethod": {
+        "value": "Transit",
+        "source": "nasa"
+      },
+      "starSpectralType": {
+        "value": "G9 V",
+        "source": "nasa"
+      },
+      "starTeffK": {
+        "value": 5275,
+        "source": "nasa"
+      },
+      "surfaceGravityG": {
+        "value": 1.44,
+        "source": "model"
+      },
+      "escapeVelocityKms": {
+        "value": 17.42,
+        "source": "model"
+      },
+      "atmosphere": {
+        "value": "scorching",
+        "source": "model"
+      }
+    },
+    {
+      "id": "kepler-78-b",
+      "name": "Kepler-78 b",
+      "host": "Kepler-78",
+      "difficulty": "hard",
+      "description": "An Earth-sized world that completes an orbit in about 8.5 hours. Its surface is likely molten, and it is doomed to spiral into its star one day.",
+      "distanceLy": {
+        "value": 405.7,
+        "source": "nasa"
+      },
+      "radiusEarth": {
+        "value": 1.201,
+        "source": "nasa"
+      },
+      "massEarth": {
+        "value": 1.68,
+        "source": "nasa"
+      },
+      "eqTempK": {
+        "value": 2223,
+        "source": "nasa"
+      },
+      "orbitalPeriodDays": {
+        "value": 0.355,
+        "source": "nasa"
+      },
+      "discoveryYear": {
+        "value": 2013,
+        "source": "nasa"
+      },
+      "discoveryMethod": {
+        "value": "Transit",
+        "source": "nasa"
+      },
+      "starSpectralType": {
+        "value": "G",
+        "source": "nasa"
+      },
+      "starTeffK": {
+        "value": 5058,
+        "source": "nasa"
+      },
+      "surfaceGravityG": {
+        "value": 1.16,
+        "source": "model"
+      },
+      "escapeVelocityKms": {
+        "value": 13.23,
+        "source": "model"
+      },
+      "atmosphere": {
+        "value": "scorching",
+        "source": "model"
+      }
+    },
+    {
+      "id": "lhs-3844-b",
+      "name": "LHS 3844 b",
+      "host": "LHS 3844",
+      "difficulty": "hard",
+      "description": "A bare, rocky world that NASA’s Spitzer telescope found has little or no atmosphere. Its day side bakes while its night side freezes.",
+      "distanceLy": {
+        "value": 48.5,
+        "source": "nasa"
+      },
+      "radiusEarth": {
+        "value": 1.286,
+        "source": "nasa"
+      },
+      "massEarth": {
+        "value": 2.37,
+        "source": "nasa"
+      },
+      "eqTempK": {
+        "value": 816,
+        "source": "nasa"
+      },
+      "orbitalPeriodDays": {
+        "value": 0.463,
+        "source": "nasa"
+      },
+      "discoveryYear": {
+        "value": 2019,
+        "source": "nasa"
+      },
+      "discoveryMethod": {
+        "value": "Transit",
+        "source": "nasa"
+      },
+      "starSpectralType": {
+        "value": "M4.5-M5.0",
+        "source": "nasa"
+      },
+      "starTeffK": {
+        "value": 3080,
+        "source": "nasa"
+      },
+      "surfaceGravityG": {
+        "value": 1.43,
+        "source": "model"
+      },
+      "escapeVelocityKms": {
+        "value": 15.19,
+        "source": "model"
+      },
+      "atmosphere": {
+        "value": "scorching",
+        "source": "model"
+      }
+    },
+    {
+      "id": "gj-367-b",
+      "name": "GJ 367 b",
+      "host": "GJ 367",
+      "difficulty": "hard",
+      "description": "A tiny, ultra-dense planet with an orbit of under eight hours. It may be mostly iron, like an oversized version of Mercury’s core.",
+      "distanceLy": {
+        "value": 30.7,
+        "source": "nasa"
+      },
+      "radiusEarth": {
+        "value": 0.736,
+        "source": "nasa"
+      },
+      "massEarth": {
+        "value": 0.503,
+        "source": "nasa"
+      },
+      "eqTempK": {
+        "value": 1329,
+        "source": "nasa"
+      },
+      "orbitalPeriodDays": {
+        "value": 0.322,
+        "source": "nasa"
+      },
+      "discoveryYear": {
+        "value": 2021,
+        "source": "nasa"
+      },
+      "discoveryMethod": {
+        "value": "Transit",
+        "source": "nasa"
+      },
+      "starSpectralType": {
+        "value": "M V",
+        "source": "nasa"
+      },
+      "starTeffK": {
+        "value": 3535,
+        "source": "nasa"
+      },
+      "surfaceGravityG": {
+        "value": 0.93,
+        "source": "model"
+      },
+      "escapeVelocityKms": {
+        "value": 9.25,
+        "source": "model"
+      },
+      "atmosphere": {
+        "value": "scorching",
+        "source": "model"
+      }
+    },
+    {
+      "id": "gj-3323-c",
+      "name": "GJ 3323 c",
+      "host": "GJ 3323",
+      "difficulty": "hard",
+      "description": "A frigid super-Earth around a nearby red dwarf. With an equilibrium temperature below 150 K, ice and cold, dense gases rule here.",
+      "distanceLy": {
+        "value": 17.5,
+        "source": "nasa"
+      },
+      "radiusEarth": {
+        "value": 1.32,
+        "source": "nasa"
+      },
+      "massEarth": {
+        "value": 2.31,
+        "source": "nasa"
+      },
+      "eqTempK": {
+        "value": 148,
+        "source": "nasa"
+      },
+      "orbitalPeriodDays": {
+        "value": 40.54,
+        "source": "nasa"
+      },
+      "discoveryYear": {
+        "value": 2017,
+        "source": "nasa"
+      },
+      "discoveryMethod": {
+        "value": "Radial Velocity",
+        "source": "nasa"
+      },
+      "starSpectralType": {
+        "value": "M4",
+        "source": "nasa"
+      },
+      "starTeffK": {
+        "value": 3159,
+        "source": "nasa"
+      },
+      "surfaceGravityG": {
+        "value": 1.33,
+        "source": "model"
+      },
+      "escapeVelocityKms": {
+        "value": 14.8,
+        "source": "model"
+      },
+      "atmosphere": {
+        "value": "frozen",
+        "source": "model"
+      }
+    },
+    {
+      "id": "kepler-186-f",
+      "name": "Kepler-186 f",
+      "host": "Kepler-186",
+      "difficulty": "hard",
+      "description": "The first Earth-sized planet found in the habitable zone of another star. It lies on the cold outer edge, about 580 light-years away.",
+      "distanceLy": {
+        "value": 579.2,
+        "source": "nasa"
+      },
+      "radiusEarth": {
+        "value": 1.17,
+        "source": "nasa"
+      },
+      "massEarth": {
+        "value": 1.71,
+        "source": "nasa"
+      },
+      "eqTempK": {
+        "value": 177,
+        "source": "nasa"
+      },
+      "orbitalPeriodDays": {
+        "value": 129.944,
+        "source": "nasa"
+      },
+      "discoveryYear": {
+        "value": 2014,
+        "source": "nasa"
+      },
+      "discoveryMethod": {
+        "value": "Transit",
+        "source": "nasa"
+      },
+      "starSpectralType": {
+        "value": "M1",
+        "source": "nasa"
+      },
+      "starTeffK": {
+        "value": 3755,
+        "source": "nasa"
+      },
+      "surfaceGravityG": {
+        "value": 1.25,
+        "source": "model"
+      },
+      "escapeVelocityKms": {
+        "value": 13.53,
+        "source": "model"
+      },
+      "atmosphere": {
+        "value": "frozen",
+        "source": "model"
+      }
+    },
+    {
+      "id": "kepler-22-b",
+      "name": "Kepler-22 b",
+      "host": "Kepler-22",
+      "difficulty": "hard",
+      "description": "Kepler’s first habitable-zone planet around a Sun-like star. It is more than twice Earth’s size and over two Earth gravities, possibly an ocean world.",
+      "distanceLy": {
+        "value": 634.8,
+        "source": "nasa"
+      },
+      "radiusEarth": {
+        "value": 2.1,
+        "source": "nasa"
+      },
+      "massEarth": {
+        "value": 9.1,
+        "source": "nasa"
+      },
+      "eqTempK": {
+        "value": 279,
+        "source": "nasa"
+      },
+      "orbitalPeriodDays": {
+        "value": 289.864,
+        "source": "nasa"
+      },
+      "discoveryYear": {
+        "value": 2011,
+        "source": "nasa"
+      },
+      "discoveryMethod": {
+        "value": "Transit",
+        "source": "nasa"
+      },
+      "starSpectralType": {
+        "value": "G5 V",
+        "source": "nasa"
+      },
+      "starTeffK": {
+        "value": 5596,
+        "source": "nasa"
+      },
+      "surfaceGravityG": {
+        "value": 2.06,
+        "source": "model"
+      },
+      "escapeVelocityKms": {
+        "value": 23.29,
+        "source": "model"
+      },
+      "atmosphere": {
+        "value": "thick",
+        "source": "model"
+      }
+    },
+    {
+      "id": "k2-18-b",
+      "name": "K2-18 b",
+      "host": "K2-18",
+      "difficulty": "hard",
+      "description": "A temperate world 2.4 times Earth’s size, studied by the James Webb Space Telescope for signs of a hydrogen-rich atmosphere and possible ocean.",
+      "distanceLy": {
+        "value": 124,
+        "source": "nasa"
+      },
+      "radiusEarth": {
+        "value": 2.37,
+        "source": "nasa"
+      },
+      "massEarth": {
+        "value": 8.92,
+        "source": "nasa"
+      },
+      "eqTempK": {
+        "value": 284,
+        "source": "nasa"
+      },
+      "orbitalPeriodDays": {
+        "value": 32.94,
+        "source": "nasa"
+      },
+      "discoveryYear": {
+        "value": 2015,
+        "source": "nasa"
+      },
+      "discoveryMethod": {
+        "value": "Transit",
+        "source": "nasa"
+      },
+      "starSpectralType": {
+        "value": "M2.5 V",
+        "source": "nasa"
+      },
+      "starTeffK": {
+        "value": 3457,
+        "source": "nasa"
+      },
+      "surfaceGravityG": {
+        "value": 1.59,
+        "source": "model"
+      },
+      "escapeVelocityKms": {
+        "value": 21.71,
+        "source": "model"
+      },
+      "atmosphere": {
+        "value": "thick",
+        "source": "model"
+      }
+    },
+    {
+      "id": "kepler-452-b",
+      "name": "Kepler-452 b",
+      "host": "Kepler-452",
+      "difficulty": "hard",
+      "description": "Sometimes called Earth’s older cousin: it orbits a Sun-like star once every 385 days. At about 1,800 light-years away it is a very long voyage.",
+      "distanceLy": {
+        "value": 1799.5,
+        "source": "nasa"
+      },
+      "radiusEarth": {
+        "value": 1.63,
+        "source": "nasa"
+      },
+      "massEarth": {
+        "value": 3.29,
+        "source": "nasa"
+      },
+      "eqTempK": {
+        "value": 265,
+        "source": "nasa"
+      },
+      "orbitalPeriodDays": {
+        "value": 384.843,
+        "source": "nasa"
+      },
+      "discoveryYear": {
+        "value": 2015,
+        "source": "nasa"
+      },
+      "discoveryMethod": {
+        "value": "Transit",
+        "source": "nasa"
+      },
+      "starSpectralType": {
+        "value": "G2",
+        "source": "nasa"
+      },
+      "starTeffK": {
+        "value": 5757,
+        "source": "nasa"
+      },
+      "surfaceGravityG": {
+        "value": 1.24,
+        "source": "model"
+      },
+      "escapeVelocityKms": {
+        "value": 15.9,
+        "source": "model"
+      },
+      "atmosphere": {
+        "value": "thick",
+        "source": "model"
+      }
+    }
+  ]
+}

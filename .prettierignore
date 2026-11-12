@@ -1,0 +1,4 @@
+dist
+node_modules
+src/data/planets.json
+package-lock.json
