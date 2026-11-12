@@ -10,7 +10,6 @@ export default defineConfig({
       output: {
         // Split large libraries into their own cacheable chunks.
         manualChunks: {
-          charts: ['recharts'],
           motion: ['framer-motion'],
           dnd: ['@dnd-kit/core'],
         },

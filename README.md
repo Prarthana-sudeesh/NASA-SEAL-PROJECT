@@ -155,4 +155,4 @@ Every value in the game is badged so players can tell real data from game assump
   https://science.nasa.gov/exoplanets/immersive/strange-new-worlds/
 - Planet descriptions, characters and all artwork are original to Team SEAL. No NASA logos or insignia are
   used.
-- Built with React, Vite, TypeScript, Tailwind CSS, Recharts, dnd-kit, Framer Motion and Zustand.
+- Built with React, Vite, TypeScript, Tailwind CSS, dnd-kit, Framer Motion and Zustand.
