@@ -47,7 +47,7 @@ import { QuizPanel } from '../ui/QuizPanel.tsx';
 import { BigButton, TopMenu } from '../ui/Hud.tsx';
 import { Astronaut, Scientist, SpeechBubble } from '../ui/Pixel.tsx';
 import { PartIcon, RocketArt } from '../ui/RocketArt.tsx';
-import { Blueprint, Stage } from '../ui/Scenery.tsx';
+import { LaunchPad, Stage } from '../ui/Scenery.tsx';
 
 const SLOT_ICONS: Record<SlotKind, string> = {
   payload: 'payload-capsule',
@@ -266,7 +266,7 @@ export function Build() {
 
   return (
     <Stage>
-      <Blueprint>
+      <LaunchPad>
         <TopMenu />
         <DndContext
           sensors={sensors}
@@ -577,7 +577,7 @@ export function Build() {
             </p>
           )}
         </div>
-      </Blueprint>
+      </LaunchPad>
     </Stage>
   );
 }

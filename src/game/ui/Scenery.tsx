@@ -272,3 +272,189 @@ export function Blueprint({ children }: { children?: ReactNode }) {
     </div>
   );
 }
+
+const rndPad = seeded(42);
+const TOWER_LIGHTS = Array.from({ length: 70 }, () => ({
+  x: 101 + rndPad() * 13,
+  y: 6 + rndPad() * 74,
+  d: rndPad() * 3 + 1.5,
+}));
+const TOWER_DECKS = [14, 26, 38, 50, 62, 72];
+
+/** Launch pad at dusk: warm sky, mountains, a tall lit service tower and a ringed planet rising. */
+export function LaunchPad({ children }: { children?: ReactNode }) {
+  const reduced = useReducedMotion();
+  return (
+    <div className="absolute inset-0 overflow-clip bg-[#0a1024]">
+      <svg
+        className="absolute inset-0 h-full w-full"
+        viewBox="0 0 160 90"
+        preserveAspectRatio="xMidYMid slice"
+        aria-hidden="true"
+      >
+        <defs>
+          <linearGradient id="pad-sky" x1="0" x2="1" y1="1" y2="0">
+            <stop offset="0" stopColor="#f6c98d" />
+            <stop offset="0.25" stopColor="#b9805a" />
+            <stop offset="0.5" stopColor="#3b3550" />
+            <stop offset="0.8" stopColor="#141a33" />
+            <stop offset="1" stopColor="#090d1f" />
+          </linearGradient>
+          <radialGradient id="pad-sun" cx="0.12" cy="0.82" r="0.55">
+            <stop offset="0" stopColor="#fff1d0" stopOpacity="0.9" />
+            <stop offset="0.35" stopColor="#ffbf73" stopOpacity="0.35" />
+            <stop offset="1" stopColor="#ffbf73" stopOpacity="0" />
+          </radialGradient>
+          <linearGradient id="pad-steel" x1="0" x2="1">
+            <stop offset="0" stopColor="#2a2b33" />
+            <stop offset="0.5" stopColor="#4a4650" />
+            <stop offset="1" stopColor="#1c1d24" />
+          </linearGradient>
+          <radialGradient id="pad-planet" cx="0.35" cy="0.3" r="0.8">
+            <stop offset="0" stopColor="#e9e2d6" />
+            <stop offset="0.6" stopColor="#9a948c" />
+            <stop offset="1" stopColor="#3c3a3a" />
+          </radialGradient>
+          <linearGradient id="pad-ground" x1="0" x2="0" y1="0" y2="1">
+            <stop offset="0" stopColor="#3a2e2a" />
+            <stop offset="1" stopColor="#0d0b10" />
+          </linearGradient>
+          <radialGradient id="pad-lamp" cx="0.5" cy="0.5" r="0.5">
+            <stop offset="0" stopColor="#ffb35a" stopOpacity="0.5" />
+            <stop offset="1" stopColor="#ffb35a" stopOpacity="0" />
+          </radialGradient>
+        </defs>
+        <rect width="160" height="90" fill="url(#pad-sky)" />
+        <rect width="160" height="90" fill="url(#pad-sun)" />
+        {/* stars in the dark half of the sky */}
+        {STARS.filter((s) => s.x + (100 - s.y) > 95).map((s, i) => (
+          <circle
+            key={i}
+            cx={s.x * 1.6}
+            cy={s.y * 0.6}
+            r={s.r * 0.18}
+            fill="#fff"
+            opacity={0.8}
+            className={!reduced && i % 3 === 0 ? 'twinkle' : undefined}
+            style={{ animationDuration: `${s.d}s` }}
+          />
+        ))}
+        {/* ringed planet rising bottom-right */}
+        <g>
+          <circle cx="150" cy="84" r="26" fill="url(#pad-planet)" />
+          {[70, 76, 82, 90].map((y) => (
+            <path
+              key={y}
+              d={`M124 ${y} Q150 ${y - 4} 176 ${y}`}
+              stroke="#5b5650"
+              strokeWidth="0.5"
+              fill="none"
+              opacity="0.6"
+            />
+          ))}
+          <ellipse
+            cx="150"
+            cy="80"
+            rx="40"
+            ry="6"
+            fill="none"
+            stroke="#d8c7a8"
+            strokeWidth="0.8"
+            opacity="0.55"
+            transform="rotate(-14 150 80)"
+          />
+        </g>
+        {/* mountains */}
+        <path
+          d="M0 74 L10 66 L16 69 L26 58 L33 64 L40 60 L52 72 L64 76 L64 90 L0 90 Z"
+          fill="#a0745a"
+          opacity="0.75"
+        />
+        <path d="M0 78 L14 71 L24 74 L34 68 L46 76 L60 80 L60 90 L0 90 Z" fill="#5c4038" />
+        {/* ground and launch deck */}
+        <path d="M0 82 H160 V90 H0 Z" fill="url(#pad-ground)" />
+        <path d="M44 84 L54 79 H116 L126 84 Z" fill="#2a2830" stroke="#6b5a4a" strokeWidth="0.3" />
+        <rect x="44" y="84" width="82" height="2" fill="#1a1820" />
+        {/* crawler ramp to the right */}
+        <path d="M126 86 L152 14 L156 15 L131 86 Z" fill="url(#pad-steel)" />
+        {[...Array(12)].map((_, i) => (
+          <path
+            key={i}
+            d={`M${127 + i * 2.2} ${83 - i * 6} l4 1`}
+            stroke="#ff9a3c"
+            strokeWidth="0.4"
+            opacity="0.7"
+          />
+        ))}
+        {/* service tower */}
+        <rect x="101" y="4" width="14" height="78" fill="url(#pad-steel)" />
+        {[...Array(26)].map((_, i) => (
+          <path
+            key={i}
+            d={`M101 ${4 + i * 3} L115 ${7 + i * 3} M115 ${4 + i * 3} L101 ${7 + i * 3}`}
+            stroke="#15161c"
+            strokeWidth="0.25"
+          />
+        ))}
+        <rect x="104.5" y="4" width="1" height="78" fill="#15161c" />
+        <rect x="110.5" y="4" width="1" height="78" fill="#15161c" />
+        {TOWER_DECKS.map((y) => (
+          <g key={y}>
+            <ellipse
+              cx="108"
+              cy={y}
+              rx="11"
+              ry="1.6"
+              fill="#2d2c34"
+              stroke="#ff9a3c"
+              strokeWidth="0.3"
+            />
+            <ellipse cx="108" cy={y + 0.4} rx="9" ry="0.6" fill="#ffb35a" opacity="0.35" />
+          </g>
+        ))}
+        {/* access arms reaching toward the rocket */}
+        {[22, 46, 66].map((y) => (
+          <g key={y}>
+            <rect x="91" y={y} width="11" height="1.6" fill="#3b3a42" />
+            <rect x="91" y={y + 1.6} width="11" height="0.3" fill="#ffb35a" opacity="0.8" />
+          </g>
+        ))}
+        {/* tower lights */}
+        {TOWER_LIGHTS.map((l, i) => (
+          <rect
+            key={i}
+            x={l.x}
+            y={l.y}
+            width="0.7"
+            height="0.5"
+            fill={i % 5 ? '#ffb35a' : '#fff2c4'}
+            className={!reduced && i % 2 ? 'twinkle' : undefined}
+            style={{ animationDuration: `${l.d}s` }}
+          />
+        ))}
+        {/* mast and beacon */}
+        <rect x="107.6" y="0" width="0.8" height="5" fill="#2a2b33" />
+        <circle cx="108" cy="0.8" r="0.8" fill="#ff4040">
+          {!reduced && (
+            <animate
+              attributeName="opacity"
+              values="1;0.15;1"
+              dur="1.6s"
+              repeatCount="indefinite"
+            />
+          )}
+        </circle>
+        {/* floodlight glows on the deck */}
+        <ellipse cx="60" cy="80" rx="10" ry="4" fill="url(#pad-lamp)" />
+        <ellipse cx="108" cy="80" rx="12" ry="4" fill="url(#pad-lamp)" />
+      </svg>
+      {/* drifting low mist */}
+      <motion.div
+        className="pointer-events-none absolute inset-x-[-20%] bottom-0 h-[14%] bg-[radial-gradient(ellipse_at_center,rgba(255,236,215,0.22),transparent_70%)]"
+        animate={reduced ? undefined : { x: ['-4%', '4%', '-4%'] }}
+        transition={{ duration: 16, repeat: Infinity, ease: 'easeInOut' }}
+      />
+      {children}
+    </div>
+  );
+}
