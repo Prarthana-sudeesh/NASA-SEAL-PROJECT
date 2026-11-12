@@ -19,12 +19,16 @@ export function Leaderboard() {
   const [tab, setTab] = useState<Difficulty>(difficulty);
   const [load, setLoad] = useState<Load>({ s: 'loading' });
   const [reload, setReload] = useState(0);
+  const [kind, setKind] = useState<'shared' | 'local' | 'remote' | null>(null);
 
   useEffect(() => {
     let alive = true;
     setLoad({ s: 'loading' });
     getLeaderboardService()
-      .list(tab, LEADERBOARD_LIMIT)
+      .then((svc) => {
+        if (alive) setKind(svc.kind);
+        return svc.list(tab, LEADERBOARD_LIMIT);
+      })
       .then((rows) => alive && setLoad({ s: 'ready', rows }))
       .catch(
         (e: unknown) =>
@@ -143,7 +147,9 @@ export function Leaderboard() {
               )}
             </div>
             <p className="text-[#9fd8e6]">
-              Scores are saved in this browser. Emails are never shown.
+              {kind === 'shared' || kind === 'remote'
+                ? '🌐 Shared online leaderboard: everyone playing this game sees it. Best campaign per player. Emails are never shown.'
+                : 'Scores are saved on this device. Play the shared version on claude.ai to compete with your team. Emails are never shown.'}
             </p>
           </div>
         </WallScreen>

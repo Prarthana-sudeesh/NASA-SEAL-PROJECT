@@ -18,6 +18,15 @@ The game covers five themes:
 
 > This game is a NASA Space Apps Challenge entry and is not endorsed by NASA.
 
+## Play it
+
+- **On claude.ai (shared leaderboard):** open the team's hosted link. Scores from everyone it's shared with
+  appear on one online leaderboard.
+- **As an installable app:** open the GitHub Pages link
+  (https://prarthana-sudeesh.github.io/NASA-SEAL-PROJECT/ once Pages is enabled), then press **📲 Install**
+  (Chrome/Edge on computers and Android) or **Share → Add to Home Screen** (iPhone/iPad). The installed app
+  opens full-screen in landscape and works offline.
+
 ## Quick start
 
 Requires **Node.js 22.18 or newer**.
@@ -110,9 +119,22 @@ NODE_USE_ENV_PROXY=1 npm run fetch-planets
 No API key is needed: the archive's TAP service is open. If a future script needs a NASA API key, copy
 `.env.example` to `.env` and set `NASA_API_KEY` (it falls back to `DEMO_KEY`). `.env` is git-ignored.
 
+## Installable app (PWA)
+
+The game is a Progressive Web App: `public/manifest.webmanifest` (name, icons, full-screen landscape),
+`public/sw.js` (offline cache) and `src/app/pwa.ts` (service worker registration and the install button).
+`.github/workflows/deploy-pages.yml` builds and publishes it to GitHub Pages on every push to `Prototype-2`
+or `main`. One-time setup: repository **Settings → Pages → Source: GitHub Actions**.
+To ship to app stores later, wrap the same build with a tool such as Capacitor.
+
 ## Leaderboard storage
 
-Leaderboards sit behind the `LeaderboardService` interface (`src/services/leaderboard/`):
+Leaderboards sit behind the `LeaderboardService` interface (`src/services/leaderboard/`). The game picks
+the best one available at start-up:
+
+- `SharedArtifactLeaderboardService`: used automatically when the game runs as a claude.ai artifact
+  published with the `db` and `user` capabilities. One row per player (`scores/<player>`), best average
+  per difficulty; everyone reads, each player writes only their own row.
 
 - `LocalLeaderboardService` is the default. It uses `localStorage`, works offline, and scores stay in that browser.
 - `RemoteLeaderboardService` is a stub, ready for Supabase, Firebase or any REST backend.

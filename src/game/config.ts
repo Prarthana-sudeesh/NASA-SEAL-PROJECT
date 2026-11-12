@@ -311,6 +311,7 @@ export const SCORING = {
   thrust: 100,
   pressure: 100,
   parts: 150,
+  quiz: 50,
   crewBonus: 0.1,
   crewPenalty: 60,
 } as const;

@@ -43,6 +43,7 @@ import {
   type Build as BuildT,
 } from '../engine.ts';
 import { Dial } from '../ui/Dial.tsx';
+import { QuizPanel } from '../ui/QuizPanel.tsx';
 import { BigButton, TopMenu } from '../ui/Hud.tsx';
 import { Astronaut, Scientist, SpeechBubble } from '../ui/Pixel.tsx';
 import { PartIcon, RocketArt } from '../ui/RocketArt.tsx';
@@ -161,7 +162,7 @@ function RocketDrop({
 }
 
 function hintFor(
-  step: 'parts' | 'dials',
+  step: 'parts' | 'quiz' | 'dials',
   build: BuildT,
   planet: Planet,
   hints: 'zones' | 'tips' | 'none',
@@ -182,8 +183,10 @@ function hintFor(
       return `${p.hull.name} can only hold ${p.hull.strengthAtm} atm, but you'll need a ${requiredSeal(planet)} atm seal here.`;
     if (p && planet.distanceLy.value >= p.antenna.rangeLy)
       return `Your ${p.antenna.name.toLowerCase()} can't reach ${planet.distanceLy.value} light-years.`;
-    return 'Looking good! Next, set the dials for this planet.';
+    return 'Looking good! Next, a quick science check, then the dials.';
   }
+  if (step === 'quiz')
+    return `Quick science check before you set the dials! Use the planet data on the left. A right answer earns bonus points.`;
   if (hints === 'zones')
     return 'Turn each dial into its green zone. Less fuel and thrust means a lighter rocket and a better score.';
   if (hints === 'tips' && p) {
@@ -206,6 +209,9 @@ export function Build() {
     setStep,
     launch,
     go,
+    quiz,
+    answerQuiz,
+    nextMissionNumber,
   } = useGame();
   const [tool, setTool] = useState<SlotKind>('payload');
   const [dragging, setDragging] = useState<string | null>(null);
@@ -215,6 +221,9 @@ export function Build() {
     useSensor(KeyboardSensor),
   );
   const planet = getPlanet(planetId);
+  const mission = nextMissionNumber();
+  const quizChoice =
+    quiz && planet && quiz.planetId === planet.id && quiz.mission === mission ? quiz.choice : null;
   if (!planet) {
     return (
       <div className="p-6 text-center">
@@ -401,6 +410,14 @@ export function Build() {
                   ))}
                 </nav>
               </motion.div>
+            ) : step === 'quiz' ? (
+              <QuizPanel
+                key="quiz"
+                planet={planet}
+                mission={mission}
+                choice={quizChoice}
+                onAnswer={answerQuiz}
+              />
             ) : (
               <motion.section
                 key="dials"
@@ -509,12 +526,29 @@ export function Build() {
           </div>
           {step === 'parts' ? (
             <BigButton
-              onClick={() => setStep('dials')}
+              onClick={() => setStep(quizChoice === null ? 'quiz' : 'dials')}
               disabled={missing.length > 0}
               className="text-[clamp(16px,2.4vw,32px)]"
             >
-              SET DIALS ▸
+              {quizChoice === null ? 'SCIENCE CHECK ▸' : 'SET DIALS ▸'}
             </BigButton>
+          ) : step === 'quiz' ? (
+            <div className="flex items-center gap-[1vw]">
+              <button
+                type="button"
+                className="tool-btn px-3 py-1 text-[12px]"
+                onClick={() => setStep('parts')}
+              >
+                ◂ Parts
+              </button>
+              <BigButton
+                onClick={() => setStep('dials')}
+                disabled={quizChoice === null}
+                className="text-[clamp(16px,2.4vw,32px)]"
+              >
+                SET DIALS ▸
+              </BigButton>
+            </div>
           ) : (
             <div className="flex items-center gap-[1vw]">
               <button

@@ -333,6 +333,7 @@ export function simulate(
   dials: Dials,
   planet: Planet,
   difficulty: Difficulty,
+  quizCorrect: boolean | null = null,
 ): Result {
   const cs = checks(build, dials, planet);
   const failed = cs.find((c) => !c.ok);
@@ -400,6 +401,7 @@ export function simulate(
       points: Math.round(partScore * (success ? 1 : 0.5)),
       max: SCORING.parts,
     },
+    { label: 'Science quiz', points: quizCorrect ? SCORING.quiz : 0, max: SCORING.quiz },
   ];
   const base = breakdown.reduce((s, b) => s + b.points, 0);
   const crew = crewAdjust(base, build.crew, success);
@@ -471,4 +473,95 @@ function explain(cs: Check[], p: Parts, build: Build, planet: Planet, success: b
   }
   if (crewLine) lines.push(crewLine);
   return lines;
+}
+
+// ---------- Science quiz ----------
+
+export interface QuizQuestion {
+  id: 'heat' | 'comms' | 'pressure' | 'gravity' | 'engine';
+  question: string;
+  options: string[];
+  answer: number;
+  explain: string;
+}
+
+const HULLS_BY_MASS = [...HULLS].sort((a, b) => a.massPerSegmentT - b.massPerSegmentT);
+
+/** One question about the chosen planet, varied by mission number. */
+export function quizFor(planet: Planet, missionNumber: number): QuizQuestion {
+  const T = Math.round(planet.eqTempK.value);
+  const ly = planet.distanceLy.value;
+  const g = planet.surfaceGravityG.value;
+  const seal = requiredSeal(planet);
+  const out = outsidePressure(planet);
+  const bank: QuizQuestion[] = [];
+
+  const lightest = HULLS_BY_MASS.find((h) => h.maxK >= T)!;
+  bank.push({
+    id: 'heat',
+    question: `${planet.name} is about ${T} K. Which is the LIGHTEST hull material that won't melt there?`,
+    options: HULLS_BY_MASS.map((h) => `${h.name} (up to ${h.maxK.toLocaleString()} K)`),
+    answer: HULLS_BY_MASS.indexOf(lightest),
+    explain: `${lightest.name} survives up to ${lightest.maxK.toLocaleString()} K, and it's the lightest one that does. Lighter hulls need less fuel.`,
+  });
+
+  const byCost = [...ANTENNAS].sort((a, b) => a.cost - b.cost);
+  const ant = byCost.find((a) => ly < a.rangeLy)!;
+  bank.push({
+    id: 'comms',
+    question: `${planet.name} is ${ly} light-years from Earth. Which is the CHEAPEST antenna that can still reach mission control?`,
+    options: byCost.map(
+      (a) => `${a.name} (${Number.isFinite(a.rangeLy) ? `under ${a.rangeLy} ly` : 'any distance'})`,
+    ),
+    answer: byCost.indexOf(ant),
+    explain: `${ant.name} is the cheapest one with enough range for ${ly} light-years.`,
+  });
+
+  const choices = [...new Set([0, 1, seal, seal + 4, 12].filter((v) => v <= TUNING.pressureMax))]
+    .sort((a, b) => a - b)
+    .slice(0, 4);
+  bank.push({
+    id: 'pressure',
+    question: `Outside pressure on ${planet.name} is about ${out} atm (game model). What is the LOWEST safe setting for the pressure seal?`,
+    options: choices.map((c) => `${c} atm`),
+    answer: choices.indexOf(seal),
+    explain:
+      out < 1
+        ? 'The crew always needs at least 1 atm, even when there is almost no air outside.'
+        : `The seal must hold back the ${out} atm outside, so set it to at least ${seal} atm (and no more than your hull can take).`,
+  });
+
+  const gAnswer = g > 1.1 ? 2 : g < 0.9 ? 0 : 1;
+  bank.push({
+    id: 'gravity',
+    question: `Gravity on ${planet.name} is ${g} g. For a rocket of the same weight, taking off from there needs…`,
+    options: [
+      'Less thrust than on Earth',
+      'About the same thrust as on Earth',
+      'More thrust than on Earth',
+    ],
+    answer: gAnswer,
+    explain: `Weight = mass × gravity. At ${g} g the rocket weighs ${g > 1 ? 'more' : g < 1 ? 'less' : 'about the same'} than on Earth, so it needs ${['less', 'about the same', 'more'][gAnswer]} thrust.`,
+  });
+
+  bank.push({
+    id: 'engine',
+    question: 'Which thruster would use the LEAST fuel for this round trip?',
+    options: ['Small thruster', 'Big thruster', 'Nuclear thruster'],
+    answer: 2,
+    explain:
+      'The nuclear thruster is about twice as fuel-efficient (×1.8 economy), but it is heavy and expensive.',
+  });
+
+  // Put the most relevant question for this planet first.
+  const order: QuizQuestion['id'][] =
+    T > 450
+      ? ['heat', 'pressure', 'gravity', 'comms', 'engine']
+      : out >= 3
+        ? ['pressure', 'gravity', 'heat', 'comms', 'engine']
+        : ly >= 15
+          ? ['comms', 'gravity', 'pressure', 'heat', 'engine']
+          : ['gravity', 'heat', 'pressure', 'comms', 'engine'];
+  const sorted = order.map((id) => bank.find((q) => q.id === id)!);
+  return sorted[(Math.max(1, missionNumber) - 1) % sorted.length];
 }

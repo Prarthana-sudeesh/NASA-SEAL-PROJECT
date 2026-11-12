@@ -10,6 +10,7 @@ import { LEADERBOARD_LIMIT } from './LeaderboardService.ts';
  * planets_visited text[], date timestamptz). Use row-level security so clients can only insert.
  */
 export class RemoteLeaderboardService implements LeaderboardService {
+  readonly kind = 'remote' as const;
   private readonly baseUrl: string;
   private readonly apiKey: string;
 

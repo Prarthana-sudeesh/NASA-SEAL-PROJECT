@@ -18,6 +18,7 @@ export function Summary() {
   const addMyEntry = useSettings((s) => s.addMyEntry);
   const [status, setStatus] = useState<Status>(run?.submittedEntryId ? 'saved' : 'idle');
   const started = useRef(false);
+  const [error, setError] = useState('');
   const attempts = run?.attempts ?? [];
   const totals = attempts.map((a) => a.result.total);
   const average = avg(totals);
@@ -28,7 +29,9 @@ export function Summary() {
     if (!run || !player) return;
     setStatus('saving');
     try {
-      const e = await getLeaderboardService().submit({
+      const e = await (
+        await getLeaderboardService()
+      ).submit({
         name: player.username,
         difficulty: run.difficulty,
         average,
@@ -42,7 +45,8 @@ export function Summary() {
       announce(
         `Average ${average} posted to the ${DIFFICULTIES[run.difficulty].label} leaderboard.`,
       );
-    } catch {
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Couldn’t save the score.');
       setStatus('error');
     }
   };
@@ -112,7 +116,7 @@ export function Summary() {
                 {status === 'saved' && `✓ Posted to the leaderboard as ${player?.username}`}
                 {status === 'error' && (
                   <>
-                    ✕ Couldn’t save the score.{' '}
+                    ✕ {error}{' '}
                     <button type="button" className="underline" onClick={() => void submit()}>
                       Retry
                     </button>

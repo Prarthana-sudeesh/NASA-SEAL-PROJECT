@@ -13,6 +13,7 @@ import {
   fuelNeeded,
   launchBlocks,
   parts,
+  quizFor,
   requiredSeal,
   simulate,
   twrEarth,
@@ -179,5 +180,30 @@ describe('scoring', () => {
 describe('pixel sprites', () => {
   it('rows are rectangular', () => {
     for (const s of [ASTRONAUT, SCIENTIST]) expect(new Set(s.map((r) => r.length)).size).toBe(1);
+  });
+});
+
+describe('science quiz', () => {
+  it('asks about heat on a lava world and the answer is the lightest hull that survives', () => {
+    const q = quizFor(lava, 1);
+    expect(q.id).toBe('heat');
+    expect(q.options[q.answer]).toMatch(/Carbon-ceramic/);
+  });
+  it('every question has a valid answer for every planet and mission', () => {
+    for (const d of Object.values(DIFFICULTIES))
+      for (const id of d.planets)
+        for (let n = 1; n <= 5; n++) {
+          const q = quizFor(getPlanet(id)!, n);
+          expect(q.options.length).toBeGreaterThanOrEqual(3);
+          expect(q.answer).toBeGreaterThanOrEqual(0);
+          expect(q.answer).toBeLessThan(q.options.length);
+          expect(new Set(q.options).size).toBe(q.options.length);
+        }
+  });
+  it('a correct answer adds the quiz bonus', () => {
+    const d = bestDials(GOOD, proxima)!;
+    const right = simulate(GOOD, d, proxima, 'easy', true);
+    const wrong = simulate(GOOD, d, proxima, 'easy', false);
+    expect(right.base - wrong.base).toBe(SCORING.quiz);
   });
 });

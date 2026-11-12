@@ -1,0 +1,20 @@
+{
+  "name": "Rocket Builder — Team SEAL",
+  "short_name": "Rocket Builder",
+  "description": "Build rockets for round trips to real exoplanets. A NASA Space Apps Challenge entry by Team SEAL.",
+  "id": "./",
+  "start_url": "./",
+  "scope": "./",
+  "display": "fullscreen",
+  "display_override": ["fullscreen", "standalone"],
+  "orientation": "landscape",
+  "background_color": "#04060f",
+  "theme_color": "#060a17",
+  "categories": ["education", "games"],
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "icons/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" },
+    { "src": "favicon.svg", "sizes": "any", "type": "image/svg+xml" }
+  ]
+}

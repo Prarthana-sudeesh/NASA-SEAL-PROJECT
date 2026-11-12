@@ -2,6 +2,7 @@ import { motion } from 'framer-motion';
 import { useState, type FormEvent } from 'react';
 import { validateName } from '../../services/nameValidation.ts';
 import { useGame } from '../../store/gameStore.ts';
+import { isIosBrowser, useInstallPrompt } from '../../app/pwa.ts';
 import { Astronaut, Scientist } from '../ui/Pixel.tsx';
 import { CommandCenter, Stage } from '../ui/Scenery.tsx';
 
@@ -18,6 +19,7 @@ export function Login() {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [errors, setErrors] = useState<{ username?: string; email?: string }>({});
+  const install = useInstallPrompt();
 
   const submit = (e: FormEvent) => {
     e.preventDefault();
@@ -103,6 +105,20 @@ export function Login() {
               >
                 ENTER
               </button>
+              {install && (
+                <button
+                  type="button"
+                  onClick={() => void install()}
+                  className="tool-btn self-center px-3 py-1 text-[12px]"
+                >
+                  📲 Install as an app
+                </button>
+              )}
+              {isIosBrowser() && (
+                <p className="text-center text-[11px] text-[#a9d6e5]">
+                  On iPhone or iPad: tap Share, then “Add to Home Screen” to install the app.
+                </p>
+              )}
             </div>
           </motion.form>
         </div>

@@ -9,6 +9,7 @@ const MAX_STORED_PER_DIFFICULTY = 200;
 
 /** Offline leaderboard kept in this browser's localStorage. */
 export class LocalLeaderboardService implements LeaderboardService {
+  readonly kind = 'local' as const;
   private readonly key: string;
 
   constructor(key = KEY) {

@@ -52,6 +52,28 @@ something simpler and more game-like, so the game was rebuilt around this flow:
 | No single rocket wins every Hard planet. Budgets were tightened from 1,000/900/1,000 so that over-building |
 | is actually limited (the most expensive possible rocket costs 980).                                        |
 
+### Science quiz
+
+- After fitting parts, Dr. Hart asks one multiple-choice question before the dials (heat → hull,
+  distance → antenna, outside pressure → seal, gravity → thrust, or which thruster saves fuel). The most
+  relevant topic for the planet comes first and the topic rotates with the mission number.
+- A right answer adds 50 points ("Science quiz" in the report). Answers lock once chosen.
+
+### Shared leaderboard
+
+- On claude.ai the game uses the artifact's shared database: `scores/<viewer id>` holds the player's
+  username and best campaign per difficulty. Rules: everyone with access reads; each player can write
+  only their own row (needs "can interact" access); the owner can tidy. Elsewhere the leaderboard stays
+  on the device (or a hosted backend via `RemoteLeaderboardService`).
+- The shared board keeps one entry per player (their best average), so it can't be flooded.
+
+### Installable app
+
+- Progressive Web App rather than a native app: one codebase, installs on phones, tablets and
+  computers, works offline, no app-store review. Hosted on GitHub Pages by a workflow. A native wrapper
+  (Capacitor) can be added later without changing the game.
+- Vite `base: './'` so the same build works at any path.
+
 ### Accounts and privacy
 
 - Username and email are stored only in the browser (localStorage). The email is never shown or sent

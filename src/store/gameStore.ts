@@ -7,6 +7,7 @@ import {
   DEFAULT_DIALS,
   EMPTY_BUILD,
   launchBlocks,
+  quizFor,
   simulate,
   type Build,
   type Dials,
@@ -28,6 +29,7 @@ export interface Attempt {
   build: Build;
   dials: Dials;
   result: Result;
+  quiz: { id: string; correct: boolean } | null;
   at: string;
 }
 
@@ -39,7 +41,14 @@ export interface Run {
   submittedEntryId: string | null;
 }
 
-export type BuildStep = 'parts' | 'dials';
+export type BuildStep = 'parts' | 'quiz' | 'dials';
+
+/** The player's quiz answer for the upcoming mission. */
+export interface QuizAnswer {
+  planetId: string;
+  mission: number;
+  choice: number;
+}
 
 export interface GameState {
   screen: Screen;
@@ -51,6 +60,7 @@ export interface GameState {
   build: Build;
   dials: Dials;
   step: BuildStep;
+  quiz: QuizAnswer | null;
   launchesWatched: number;
 
   go: (s: Screen) => void;
@@ -62,6 +72,9 @@ export interface GameState {
   setBuild: (b: Build) => void;
   setDials: (d: Partial<Dials>) => void;
   setStep: (s: BuildStep) => void;
+  answerQuiz: (choice: number) => void;
+  /** Mission number the next launch will be. */
+  nextMissionNumber: () => number;
   launch: () => Attempt | null;
   markWatched: () => void;
   next: () => void;
@@ -87,6 +100,7 @@ const initial = {
   build: EMPTY_BUILD,
   dials: DEFAULT_DIALS,
   step: 'parts' as BuildStep,
+  quiz: null as QuizAnswer | null,
   launchesWatched: 0,
 };
 
@@ -117,6 +131,17 @@ export const useGame = create<GameState>()(
       setBuild: (build) => set({ build }),
       setDials: (d) => set((s) => ({ dials: { ...s.dials, ...d } })),
       setStep: (step) => set({ step }),
+      nextMissionNumber: () => {
+        const { run, difficulty } = get();
+        return run && run.difficulty === difficulty && run.attempts.length < ATTEMPTS_PER_RUN
+          ? run.attempts.length + 1
+          : 1;
+      },
+      answerQuiz: (choice) => {
+        const { planetId } = get();
+        if (!planetId) return;
+        set({ quiz: { planetId, mission: get().nextMissionNumber(), choice } });
+      },
       launch: () => {
         const { planetId, build, dials, difficulty } = get();
         const planet = getPlanet(planetId);
@@ -124,15 +149,26 @@ export const useGame = create<GameState>()(
         let run = get().run;
         if (!run || run.difficulty !== difficulty || run.attempts.length >= ATTEMPTS_PER_RUN)
           run = newRun(difficulty);
+        const n = run.attempts.length + 1;
+        const q = quizFor(planet, n);
+        const answer = get().quiz;
+        const answered =
+          answer && answer.planetId === planet.id && answer.mission === n ? answer.choice : null;
+        const correct = answered === null ? null : answered === q.answer;
         const attempt: Attempt = {
-          n: run.attempts.length + 1,
+          n,
           planetId: planet.id,
           build,
           dials,
-          result: simulate(build, dials, planet, difficulty),
+          result: simulate(build, dials, planet, difficulty, correct),
+          quiz: correct === null ? null : { id: q.id, correct },
           at: new Date().toISOString(),
         };
-        set({ run: { ...run, attempts: [...run.attempts, attempt] }, screen: 'launch' });
+        set({
+          run: { ...run, attempts: [...run.attempts, attempt] },
+          screen: 'launch',
+          quiz: null,
+        });
         return attempt;
       },
       markWatched: () => set((s) => ({ launchesWatched: s.launchesWatched + 1 })),
@@ -161,6 +197,7 @@ export const useGame = create<GameState>()(
         build: s.build,
         dials: s.dials,
         step: s.step,
+        quiz: s.quiz,
         launchesWatched: s.launchesWatched,
       }),
       merge: (persisted, current) => {

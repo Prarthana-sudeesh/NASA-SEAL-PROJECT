@@ -3,6 +3,7 @@ import type { ReactNode } from 'react';
 import { useReducedMotion } from '../../hooks/useReducedMotion.ts';
 import { useGame } from '../../store/gameStore.ts';
 import { useSettings } from '../../store/settingsStore.ts';
+import { useInstallPrompt } from '../../app/pwa.ts';
 
 /** Outlined game text block (white with dark outline), used for on-screen readouts. */
 export function Readout({
@@ -63,8 +64,14 @@ function IconButton({
 export function TopMenu() {
   const { go, signOut, player } = useGame();
   const { sound, toggleSound, motion: m, setMotion } = useSettings();
+  const install = useInstallPrompt();
   return (
     <nav aria-label="Game menu" className="absolute right-[1.5%] top-[2%] z-20 flex gap-[0.6vw]">
+      {install && (
+        <IconButton label="Install Rocket Builder as an app" onClick={() => void install()}>
+          📲
+        </IconButton>
+      )}
       <IconButton label="Leaderboard" onClick={() => go('leaderboard')}>
         🏆
       </IconButton>
