@@ -18,7 +18,7 @@ export class ErrorBoundary extends Component<{ children: ReactNode }, State> {
 
   private reset = () => {
     try {
-      localStorage.removeItem('rocket-builder:game');
+      localStorage.removeItem('rocket-builder:v2');
     } catch {
       /* ignore */
     }

@@ -12,7 +12,7 @@ The game covers five themes:
 
 - space exploration
 - rocket engineering and design
-- physics-based decisions (Δv, thrust-to-weight, gravity, temperature, pressure)
+- physics-based decisions (thrust-to-weight, fuel, gravity, temperature, pressure)
 - budget management
 - competition through leaderboards
 
@@ -48,53 +48,45 @@ bundled in `src/data/planets.json`.
 
 ## How to play
 
-1. **Briefing**: meet the (fictional) mission-control team and choose a call-sign.
-2. **Difficulty**: Easy, Medium or Hard. Each level adds new engineering systems, not just a smaller budget.
-3. **Destination**: pick an exoplanet. Each card has Level, Description, Stats and Resources tabs.
-4. **Mission brief**: real values are badged **NASA DATA**; simplified assumptions and computed values are
-   badged **GAME MODEL**.
-5. **Build**: drag parts from the palette onto the rocket, or use **+ Add**. Live stats show cost, mass,
-   Δv and thrust-to-weight.
-6. **Pre-flight review**: a checklist with pass/warn/fail lights. You may launch a rocket that will fail,
-   so you can learn from it.
-7. **Launch**: countdown, lift-off, then a shared journey animation. The pressure meter, mission status
-   tracker, fuel gauge and crew indicator update as you fly.
-8. **Outcome**: score breakdown, astronaut multiplier, and a debrief tied to your exact choices.
-9. **Repeat**: ten missions per campaign. The average goes to that difficulty's leaderboard.
+1. **Crew login**: enter a username (shown on the leaderboard) and an email (stored only on your device).
+2. **Mission control**: Dr. Hart, the mission scientist, briefs you. Pick **Easy, Medium or Hard**, then a
+   planet. The wall screen shows its **Level, Description, Stats and Resources**. Real values are badged
+   **NASA DATA**; game assumptions are badged **GAME MODEL**.
+3. **Blueprint room**: drag parts from the toolbar onto the rocket (or press **+**):
+   payload (probe or crew capsule), communication antenna, fuel tank (rocket length), outer hull material
+   (aluminium, titanium, stainless steel, carbon-ceramic) and thruster. Add astronauts for a score multiplier.
+4. **Set the dials** using the planet data: fuel load, engine thrust and pressure seal. On Easy the dials
+   show their safe zones; on Medium the scientist gives tips; on Hard you're on your own.
+5. **Launch** from Earth City and follow the shared journey through space, with a live pressure meter, fuel
+   gauge, crew indicator and mission tracker. If something is wrong, the rocket fails at that stage.
+6. **Mission report**: score breakdown (mission, budget, each dial, part choice, astronauts) and a
+   debrief explaining exactly why the mission succeeded or failed.
+7. **Ten missions per campaign**: your average goes on that difficulty's leaderboard.
 
 ## Project structure
 
 ```
 src/
-  app/          App shell, header/footer, error boundary (screen switching lives in the store)
-  screens/      Briefing, Difficulty, PlanetSelect, PlanetBrief, Builder, PreLaunch, Launch,
-                Outcome, RunSummary, Leaderboard, Credits
-  components/   Badge, Gauge, StatCard, StatusLight, Dialogue, Avatar, ProgressTracker,
-                PlanetVisual, ScienceNote, LiveRegion, planetInfo helpers
-  builder/      Palette, ComponentCard, RocketCanvas, Slot, CrewSelector, LiveStats, dropLogic,
-                parts/ (SVG rocket parts shared by builder, review and launch)
-  launch/       Scenes (shared journey animation), sound (Web Audio)
-  engine/       physics, requirements, build, mission, scoring, debrief, attempt (pure TypeScript, tested)
-  config/       components, physics, difficulty, scoring, characters (all tuning lives here)
-  data/         planets.json (snapshot), planets.ts (typed loader + validation), types.ts
-  services/     leaderboard/ (interface, Local, Remote stub), nameValidation
-  store/        gameStore (run, attempt, build, screen), settingsStore, persistence
-scripts/        fetch-planets.ts, planet-descriptions.ts, balance-check.ts
+  app/            App shell (screen switching) and error boundary
+  game/
+    config.ts     All tuning: parts, costs, budgets, planets per difficulty, scoring
+    engine.ts     Pure game rules: checks, dial zones, simulation, score, debrief text
+    screens/      Login, Mission (control room), Build (blueprint + dials), Launch, Result, Summary, Leaderboard
+    ui/           Pixel characters, scenery (control room, hologram, blueprint), rocket art, dial, HUD
+    sound.ts      Web Audio beeps and engine rumble (off by default)
+  components/     Badge, PlanetVisual, LiveRegion
+  data/           planets.json (NASA snapshot), planets.ts (typed loader + validation), types.ts
+  services/       leaderboard (interface, local storage, remote stub), name validation
+  store/          gameStore (player, campaign, build, dials), settingsStore, persistence
+scripts/          fetch-planets.ts, planet-descriptions.ts, balance-check.ts
 ```
 
 ## Tuning the game
 
-Everything you would want to tweak is in `src/config/`:
-
-- `components.ts`: every part's cost, mass, thrust, Isp, fuel, comms tier, pressure rating, temperature
-  range, crew seats and life support. Each astronaut adds `ASTRONAUT_MASS_T` (0.5 t).
-- `physics.ts`: the Δv legs, the `GAME_DV_SCALE` playability factor, thrust-to-weight minimums, comms tier
-  distances, atmosphere rules, pressure per atmosphere, life-support formula and overspend allowance.
-- `difficulty.ts`: budget, modules in play, checks in play, crew limit and hint mode per difficulty.
-- `scoring.ts`: category maximums, ideal bands and crew multiplier.
-
-After changing anything, run `npm run balance-check`. It fails if any planet becomes unwinnable within
-budget, or if one rocket can win every Hard planet. Record notable changes in `DECISIONS.md`.
+Everything lives in `src/game/config.ts`: part costs, masses, fuel capacity, heat limits, hull strength,
+thrust, fuel economy, the fuel formula, budgets, which planets are in each difficulty, and scoring. After a
+change, run `npm run balance-check`. It fails if a planet can't be won within its budget, or if one rocket
+can win every Hard planet.
 
 ## Refreshing planet data
 
@@ -147,10 +139,10 @@ one would take tens of thousands of years with current rockets. In Rocket Builde
 sizes, masses and temperatures are real** (NASA DATA), but **travel physics are simplified** (GAME
 MODEL) so missions are playable:
 
-- Δv uses the real rocket equation, but each mission leg is scaled down by a single playability factor.
+- Fuel needs grow with distance (log scale), gravity and rocket mass, using one simple formula rather than full orbital mechanics.
 - Atmospheres are estimated from size, gravity and temperature, because the archive has no atmosphere
   data for most planets.
-- Life support uses game days, not real voyage times.
+- Outside pressure comes from the atmosphere class, which is estimated.
 
 Every value in the game is badged so players can tell real data from game assumptions. See
 `DECISIONS.md` for the full list of assumptions.

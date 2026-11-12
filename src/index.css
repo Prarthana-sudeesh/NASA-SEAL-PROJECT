@@ -18,7 +18,7 @@
   --color-nasa: #7cc0ff;
   --color-model: #c9a8ff;
   --font-display: 'Trebuchet MS', 'Segoe UI', system-ui, sans-serif;
-  --font-sans: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-sans: 'Exo 2', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
   --font-mono: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
 }
 
@@ -139,4 +139,111 @@
 }
 .twinkle {
   animation: twinkle 3s ease-in-out infinite;
+}
+
+/* ---------- Game styling ---------- */
+.font-pixel {
+  font-family: 'Press Start 2P', ui-monospace, monospace;
+}
+.title-font {
+  font-family: 'Russo One', 'Trebuchet MS', system-ui, sans-serif;
+  letter-spacing: 0.02em;
+}
+/* White text with a dark outline, readable over any scene. */
+.outlined {
+  color: #fff;
+  text-shadow:
+    -1px -1px 0 #0b0f1e,
+    1px -1px 0 #0b0f1e,
+    -1px 1px 0 #0b0f1e,
+    1px 1px 0 #0b0f1e,
+    0 2px 0 #0b0f1e,
+    0 0 8px rgba(0, 0, 0, 0.6);
+}
+.pixel-name {
+  font-family: 'Press Start 2P', ui-monospace, monospace;
+  color: #fff;
+  text-shadow:
+    -1px -1px 0 #0b0f1e,
+    1px -1px 0 #0b0f1e,
+    -1px 1px 0 #0b0f1e,
+    1px 1px 0 #0b0f1e;
+  font-size: clamp(7px, 0.75vw, 11px);
+}
+/* Chunky outlined game button, like a big START label. */
+.big-btn {
+  font-family: 'Russo One', 'Trebuchet MS', system-ui, sans-serif;
+  color: #fff;
+  letter-spacing: 0.04em;
+  padding: 0.15em 0.6em;
+  border-radius: 0.35em;
+  background: linear-gradient(#ff9a3d, #ff6a1a);
+  border: 3px solid #0b0f1e;
+  box-shadow:
+    0 0.18em 0 #0b0f1e,
+    inset 0 2px 0 rgba(255, 255, 255, 0.45);
+  text-shadow:
+    -2px -2px 0 #0b0f1e,
+    2px -2px 0 #0b0f1e,
+    -2px 2px 0 #0b0f1e,
+    2px 2px 0 #0b0f1e,
+    0 3px 0 #0b0f1e;
+  white-space: nowrap;
+}
+.tool-btn {
+  border-radius: 0.4rem;
+  border: 2px solid #0b0f1e;
+  background: #ffe24a;
+  color: #0b0f1e;
+  font-weight: 800;
+  box-shadow: 0 2px 0 #0b0f1e;
+}
+.tool-btn:disabled {
+  opacity: 0.4;
+}
+.dial-btn {
+  width: 1.6rem;
+  height: 1.4rem;
+  border-radius: 0.35rem;
+  background: #1a2a52;
+  color: #fff;
+  font-weight: 800;
+  border: 1px solid #3a4c80;
+}
+.game-input {
+  width: 100%;
+  border-radius: 0.5rem;
+  border: 2px solid rgba(95, 243, 255, 0.4);
+  background: #031426;
+  color: #e6fbff;
+  padding: 0.5em 0.75em;
+  font-size: clamp(12px, 1.1vw, 16px);
+}
+.game-input:focus {
+  border-color: #5ff3ff;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(95, 243, 255, 0.3);
+}
+@keyframes shake {
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+  25% {
+    transform: translate(-4px, 2px);
+  }
+  50% {
+    transform: translate(4px, -2px);
+  }
+  75% {
+    transform: translate(-2px, -3px);
+  }
+}
+.rotate-hint {
+  display: none;
+}
+@media (orientation: portrait) and (max-width: 700px) {
+  .rotate-hint {
+    display: block;
+  }
 }

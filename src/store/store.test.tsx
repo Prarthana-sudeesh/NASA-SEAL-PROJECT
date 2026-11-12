@@ -1,75 +1,88 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { App } from '../app/App.tsx';
-import { ATTEMPTS_PER_RUN } from '../config/difficulty.ts';
-import { emptyBuild } from '../engine/build.ts';
+import { validateEmail } from '../game/screens/Login.tsx';
+import { ATTEMPTS_PER_RUN } from '../game/config.ts';
 import { resetGameStore, useGame } from './gameStore.ts';
 import { safeStorage, takeStorageNotice } from './persistence.ts';
 
 const GOOD = {
-  ...emptyBuild(),
-  payload: 'probe-pod',
-  comms: 'low-gain',
-  fuel: ['tank-large', null, null] as [string, null, null],
-  thrusters: ['nuclear-thermal', null] as [string, null],
+  payload: 'payload-capsule',
+  antenna: 'antenna-low',
+  body: 'body-medium',
+  hull: 'hull-aluminium',
+  engine: 'engine-small',
+  crew: 1,
 };
 
 describe('game store', () => {
   beforeEach(() => resetGameStore());
 
-  it('records attempts and stops at 10', () => {
+  it('records 10 launches per campaign, then shows the summary', () => {
     const s = useGame.getState();
-    s.startRun('easy');
-    for (let i = 0; i < ATTEMPTS_PER_RUN + 2; i++) {
-      useGame.getState().selectPlanet('proxima-cen-b');
-      useGame.getState().setBuild(GOOD);
-      useGame.getState().launch();
-    }
-    const run = useGame.getState().run!;
-    expect(run.attempts).toHaveLength(ATTEMPTS_PER_RUN);
-    expect(run.attempts.map((a) => a.n)).toEqual([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
-    useGame.getState().nextAttempt();
+    s.signIn({ username: 'Ace', email: 'ace@x.org' });
+    s.choosePlanet('proxima-cen-b');
+    s.setBuild(GOOD);
+    s.setDials({ fuel: 72, thrust: 66, pressure: 1 });
+    for (let i = 0; i < ATTEMPTS_PER_RUN; i++) useGame.getState().launch();
+    expect(useGame.getState().run!.attempts).toHaveLength(ATTEMPTS_PER_RUN);
+    expect(useGame.getState().run!.attempts.every((a) => a.result.success)).toBe(true);
+    useGame.getState().next();
     expect(useGame.getState().screen).toBe('summary');
+    // An 11th launch starts a fresh campaign.
+    useGame.getState().launch();
+    expect(useGame.getState().run!.attempts).toHaveLength(1);
   });
 
-  it('refuses to launch a hard-blocked build', () => {
-    useGame.getState().startRun('easy');
-    useGame.getState().selectPlanet('proxima-cen-b');
+  it('refuses to launch an unfinished rocket', () => {
+    useGame.getState().signIn({ username: 'Ace', email: 'ace@x.org' });
     expect(useGame.getState().launch()).toBeNull();
   });
 
   it('corrupt saved state resets cleanly with a message', () => {
-    localStorage.setItem('rocket-builder:game', '{oops');
-    expect(safeStorage.getItem('rocket-builder:game')).toBeNull();
-    expect(localStorage.getItem('rocket-builder:game')).toBeNull();
+    localStorage.setItem('rocket-builder:v2', '{oops');
+    expect(safeStorage.getItem('rocket-builder:v2')).toBeNull();
     expect(takeStorageNotice()).toMatch(/reset/);
   });
 
   it('structurally invalid saved state is rejected on rehydrate', async () => {
     localStorage.setItem(
-      'rocket-builder:game',
-      JSON.stringify({ state: { playerName: 5, build: {} }, version: 1 }),
+      'rocket-builder:v2',
+      JSON.stringify({ state: { player: { username: 5 }, build: {} }, version: 2 }),
     );
     await useGame.persist.rehydrate();
-    expect(useGame.getState().playerName).toBe('');
+    expect(useGame.getState().player).toBeNull();
     expect(takeStorageNotice()).toMatch(/damaged/);
   });
 });
 
-describe('<App /> smoke test', () => {
+describe('sign in', () => {
   beforeEach(() => resetGameStore());
 
-  it('goes from briefing to difficulty selection', async () => {
+  it('validates email', () => {
+    expect(validateEmail('')).toMatch(/Enter/);
+    expect(validateEmail('nope')).toMatch(/doesn’t look right/);
+    expect(validateEmail('a@b.co')).toBeNull();
+  });
+
+  it('signs in with a username and email and opens mission control', async () => {
     const user = userEvent.setup();
     render(<App />);
-    await user.click(screen.getByRole('button', { name: 'Skip briefing' }));
-    await user.type(screen.getByLabelText(/Call-sign/), 'A');
-    await user.click(screen.getByRole('button', { name: /Report for duty/ }));
-    expect(screen.getByRole('alert')).toHaveTextContent(/at least 2/);
-    await user.type(screen.getByLabelText(/Call-sign/), 'ce');
-    await user.click(screen.getByRole('button', { name: /Report for duty/ }));
-    expect(screen.getByRole('heading', { name: 'Choose your difficulty' })).toBeInTheDocument();
-    expect(useGame.getState().playerName).toBe('Ace');
+    await user.type(screen.getByLabelText(/Username/), 'A');
+    await user.type(screen.getByLabelText('Email'), 'bad');
+    await user.click(screen.getByRole('button', { name: 'ENTER' }));
+    expect(
+      screen
+        .getAllByRole('alert')
+        .map((a) => a.textContent)
+        .join(' '),
+    ).toMatch(/at least 2/);
+    await user.type(screen.getByLabelText(/Username/), 'ce');
+    await user.clear(screen.getByLabelText('Email'));
+    await user.type(screen.getByLabelText('Email'), 'ace@school.org');
+    await user.click(screen.getByRole('button', { name: 'ENTER' }));
+    expect(useGame.getState().player).toEqual({ username: 'Ace', email: 'ace@school.org' });
+    expect(await screen.findByRole('button', { name: 'BUILD ROCKET' })).toBeInTheDocument();
     expect(screen.getByText(/not endorsed by NASA/)).toBeInTheDocument();
   });
 });
