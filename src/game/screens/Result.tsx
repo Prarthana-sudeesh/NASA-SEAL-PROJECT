@@ -9,6 +9,7 @@ import { BigButton, TopMenu } from '../ui/Hud.tsx';
 import { Astronaut, Scientist, SpeechBubble } from '../ui/Pixel.tsx';
 import { CommandCenter, Hologram, Stage, WallScreen } from '../ui/Scenery.tsx';
 import { avg } from './Mission.tsx';
+import { sfx } from '../sound.ts';
 
 function CountUp({ to }: { to: number }) {
   const reduced = useReducedMotion();
@@ -16,7 +17,17 @@ function CountUp({ to }: { to: number }) {
   const rounded = useTransform(v, (x) => Math.round(x));
   useEffect(() => {
     if (reduced) return;
-    const c = animate(v, to, { duration: 1.4, ease: 'easeOut' });
+    let last = 0;
+    const c = animate(v, to, {
+      duration: 1.4,
+      ease: 'easeOut',
+      onUpdate: (x) => {
+        if (x - last >= Math.max(25, to / 18)) {
+          last = x;
+          sfx('coin', 60);
+        }
+      },
+    });
     return () => c.stop();
   }, [to, v, reduced]);
   return <motion.span>{rounded}</motion.span>;
@@ -25,6 +36,19 @@ function CountUp({ to }: { to: number }) {
 export function Result() {
   const { run, player, next, go } = useGame();
   const attempt = currentAttempt(run);
+  const success = attempt?.result.success;
+  useEffect(() => {
+    if (success === undefined) return;
+    if (!success) {
+      sfx('sad');
+      return;
+    }
+    sfx('fanfare');
+    const pops = Array.from({ length: 8 }, (_, i) =>
+      window.setTimeout(() => sfx('pop', 0), 300 + i * 140 + Math.random() * 80),
+    );
+    return () => pops.forEach((t) => window.clearTimeout(t));
+  }, [success, attempt?.n]);
   const planet = getPlanet(attempt?.planetId);
   if (!run || !attempt || !planet) {
     return (

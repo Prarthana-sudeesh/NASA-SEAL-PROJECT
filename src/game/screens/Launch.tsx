@@ -8,7 +8,7 @@ import { useGame, currentAttempt } from '../../store/gameStore.ts';
 import { useSettings } from '../../store/settingsStore.ts';
 import { SCORING, getPart, type HullPart } from '../config.ts';
 import { STAGES, STAGE_LABELS, outsidePressure, type Stage as MStage } from '../engine.ts';
-import { beep, rumble } from '../sound.ts';
+import { duckMusic, rumble, sfx } from '../sound.ts';
 import { RocketArt } from '../ui/RocketArt.tsx';
 import { Stage, Starfield } from '../ui/Scenery.tsx';
 
@@ -22,6 +22,43 @@ const DUR: Record<MStage, number> = {
 };
 const FAIL_DUR = 2.8;
 const COUNT = 5;
+
+// ---------- Sound cues per flight stage ----------
+const later: number[] = [];
+function after(ms: number, fn: () => void) {
+  later.push(window.setTimeout(fn, ms));
+}
+function playStageSound(stage: MStage, failing: boolean, failId?: string) {
+  later.splice(0).forEach((t) => window.clearTimeout(t));
+  if (failing) {
+    sfx('alarm');
+    if (failId?.startsWith('pressure')) after(500, () => sfx('hiss'));
+    else if (failId === 'fuel' && stage !== 'landing') after(500, () => sfx('powerDown'));
+    else after(700, () => sfx('explosion'));
+    return;
+  }
+  switch (stage) {
+    case 'launch':
+      sfx('ignition');
+      after(1800, () => sfx('boom'));
+      break;
+    case 'journey':
+      sfx('warp');
+      break;
+    case 'approach':
+      sfx('ping');
+      break;
+    case 'landing':
+      sfx('landing');
+      break;
+    case 'ascent':
+      sfx('ignition');
+      break;
+    case 'return':
+      sfx('reentry');
+      break;
+  }
+}
 
 // ---------- City (original artwork, generated) ----------
 function seeded(seed: number) {
@@ -281,12 +318,13 @@ export function Launch() {
     if (!result || done) return;
     let t: number;
     if (idx === -1) {
-      if (sound) beep(count === 0 ? 1320 : 880);
+      sfx(count === 0 ? 'go' : 'count');
       t = window.setTimeout(() => (count > 0 ? setCount(count - 1) : setIdx(0)), 650);
     } else {
       const stage = STAGES[idx];
       const failing = result.failedAt === stage;
       announce(`${STAGE_LABELS[stage]}${failing ? ': failure!' : ''}`);
+      playStageSound(stage, failing, result.checks.find((c) => !c.ok)?.id);
       t = window.setTimeout(
         () => (idx >= lastIdx ? setDone(true) : setIdx(idx + 1)),
         (failing ? FAIL_DUR : DUR[stage]) * 1000,
@@ -299,6 +337,10 @@ export function Launch() {
     if (!sound || idx !== 0) return;
     return rumble();
   }, [sound, idx]);
+  useEffect(() => {
+    duckMusic(!done);
+    return () => duckMusic(false);
+  }, [done]);
 
   useEffect(() => {
     if (done && result && planet && !told.current) {

@@ -17,7 +17,7 @@ interface SettingsState {
 export const useSettings = create<SettingsState>()(
   persist(
     (set) => ({
-      sound: false,
+      sound: true,
       motion: 'system',
       myEntryIds: [],
       toggleSound: () => set((s) => ({ sound: !s.sound })),
@@ -26,7 +26,10 @@ export const useSettings = create<SettingsState>()(
     }),
     {
       name: 'rocket-builder:settings',
-      version: 1,
+      version: 2,
+      // v2 turned sound on by default (music and effects were added).
+      migrate: (p, v) =>
+        v < 2 && p && typeof p === 'object' ? { ...(p as object), sound: true } : p,
       storage: createJSONStorage(() => safeStorage),
       merge: (persisted, current) => {
         const p = persisted as Partial<SettingsState> | undefined;

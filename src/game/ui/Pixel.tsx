@@ -1,4 +1,5 @@
 // Original pixel-art characters drawn from character grids (one character = one pixel).
+import { sfx } from '../sound.ts';
 import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
 import { useReducedMotion } from '../../hooks/useReducedMotion.ts';
@@ -274,7 +275,13 @@ export function SpeechBubble({
       return;
     }
     setN(0);
-    const t = window.setInterval(() => setN((c) => (c >= text.length ? c : c + 2)), 22);
+    let c = 0;
+    const t = window.setInterval(() => {
+      if (c >= text.length) return;
+      c += 2;
+      if (c % 6 === 0 && text[c] !== ' ') sfx('blip', 50);
+      setN(c);
+    }, 22);
     return () => window.clearInterval(t);
   }, [text, reduced]);
   return (

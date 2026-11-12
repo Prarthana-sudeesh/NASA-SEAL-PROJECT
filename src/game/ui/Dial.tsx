@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { useRef, type KeyboardEvent, type PointerEvent } from 'react';
 import { useReducedMotion } from '../../hooks/useReducedMotion.ts';
+import { sfx } from '../sound.ts';
 
 interface Props {
   label: string;
@@ -47,7 +48,14 @@ export function Dial({
   const frac = (value - min) / (max - min);
   const angle = START + frac * SWEEP;
   const toAngle = (v: number) => START + ((v - min) / (max - min)) * SWEEP;
-  const set = (v: number) => onChange(Math.min(max, Math.max(min, Math.round(v / step) * step)));
+  const within = (v: number) => !!zone && v >= zone[0] && v <= zone[1];
+  const set = (raw: number) => {
+    const v = Math.min(max, Math.max(min, Math.round(raw / step) * step));
+    if (v === value) return;
+    if (within(v) && !within(value)) sfx('zone');
+    else sfx('tick', 25);
+    onChange(v);
+  };
 
   const fromPointer = (e: PointerEvent) => {
     const r = ref.current?.getBoundingClientRect();

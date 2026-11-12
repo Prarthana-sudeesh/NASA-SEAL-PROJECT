@@ -7,6 +7,7 @@ import { useGame } from '../../store/gameStore.ts';
 import { useSettings } from '../../store/settingsStore.ts';
 import { ATTEMPTS_PER_RUN, DIFFICULTIES } from '../config.ts';
 import { BigButton, TopMenu } from '../ui/Hud.tsx';
+import { sfx } from '../sound.ts';
 import { Astronaut, Scientist, SpeechBubble } from '../ui/Pixel.tsx';
 import { CommandCenter, Stage, WallScreen } from '../ui/Scenery.tsx';
 import { avg } from './Mission.tsx';
@@ -18,6 +19,7 @@ export function Summary() {
   const addMyEntry = useSettings((s) => s.addMyEntry);
   const [status, setStatus] = useState<Status>(run?.submittedEntryId ? 'saved' : 'idle');
   const started = useRef(false);
+  useEffect(() => sfx('fanfare'), []);
   const [error, setError] = useState('');
   const attempts = run?.attempts ?? [];
   const totals = attempts.map((a) => a.result.total);

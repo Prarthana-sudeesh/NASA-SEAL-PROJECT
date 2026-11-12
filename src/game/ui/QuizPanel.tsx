@@ -1,3 +1,4 @@
+import { sfx } from '../sound.ts';
 import { motion } from 'framer-motion';
 import { announce } from '../../components/LiveRegion.tsx';
 import type { Planet } from '../../data/types.ts';
@@ -46,7 +47,9 @@ export function QuizPanel({ planet, mission, choice, onAnswer }: Props) {
               <motion.button
                 type="button"
                 disabled={answered}
+                data-sfx="none"
                 onClick={() => {
+                  sfx(i === q.answer ? 'correct' : 'wrong');
                   onAnswer(i);
                   announce(i === q.answer ? `Correct! ${q.explain}` : `Not quite. ${q.explain}`);
                 }}

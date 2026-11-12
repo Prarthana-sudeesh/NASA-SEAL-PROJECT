@@ -5,6 +5,8 @@ import { useGame } from '../../store/gameStore.ts';
 import { isIosBrowser, useInstallPrompt } from '../../app/pwa.ts';
 import { Astronaut, Scientist } from '../ui/Pixel.tsx';
 import { CommandCenter, Stage } from '../ui/Scenery.tsx';
+import { TopMenu } from '../ui/Hud.tsx';
+import { sfx } from '../sound.ts';
 
 export function validateEmail(email: string): string | null {
   const v = email.trim();
@@ -27,12 +29,16 @@ export function Login() {
     const em = validateEmail(email);
     const next = { username: u.ok ? undefined : u.error, email: em ?? undefined };
     setErrors(next);
-    if (u.ok && !em) signIn({ username: u.value, email: email.trim() });
+    if (u.ok && !em) {
+      sfx('powerUp');
+      signIn({ username: u.value, email: email.trim() });
+    } else sfx('error');
   };
 
   return (
     <Stage>
       <CommandCenter>
+        <TopMenu />
         <div className="absolute inset-0 grid place-items-center p-[2%]">
           <motion.form
             onSubmit={submit}

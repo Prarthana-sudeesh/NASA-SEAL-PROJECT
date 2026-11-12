@@ -48,6 +48,7 @@ import { BigButton, TopMenu } from '../ui/Hud.tsx';
 import { Astronaut, Scientist, SpeechBubble } from '../ui/Pixel.tsx';
 import { PartIcon, RocketArt } from '../ui/RocketArt.tsx';
 import { LaunchPad, Stage } from '../ui/Scenery.tsx';
+import { sfx } from '../sound.ts';
 
 const SLOT_ICONS: Record<SlotKind, string> = {
   payload: 'payload-capsule',
@@ -250,6 +251,7 @@ export function Build() {
     setBuild(next);
     setTool(part.kind);
     setFlash((f) => f + 1);
+    sfx('snap');
     announce(`${part.name} fitted as ${SLOT_LABELS[part.kind].toLowerCase()}.`);
   };
   const onDragEnd = (e: DragEndEvent) => {
@@ -257,7 +259,10 @@ export function Build() {
     setDragging(null);
     if (!id) return;
     if (e.over?.id === 'rocket') fit(id);
-    else announce('Dropped outside the rocket. The part went back to the toolbar.');
+    else {
+      sfx('error');
+      announce('Dropped outside the rocket. The part went back to the toolbar.');
+    }
   };
 
   const dragged = getPart(dragging);
@@ -270,7 +275,10 @@ export function Build() {
         <TopMenu />
         <DndContext
           sensors={sensors}
-          onDragStart={(e) => setDragging((e.active.data.current?.partId as string) ?? null)}
+          onDragStart={(e) => {
+            sfx('pickup');
+            setDragging((e.active.data.current?.partId as string) ?? null);
+          }}
           onDragEnd={onDragEnd}
           onDragCancel={() => setDragging(null)}
         >

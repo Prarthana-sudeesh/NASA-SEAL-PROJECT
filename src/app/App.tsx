@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { LiveRegion } from '../components/LiveRegion.tsx';
 import { DATA_RETRIEVED_AT, SNAPSHOT_ERRORS } from '../data/planets.ts';
 import { Build } from '../game/screens/Build.tsx';
@@ -11,6 +11,45 @@ import { Summary } from '../game/screens/Summary.tsx';
 import { takeStorageNotice } from '../store/persistence.ts';
 import { useGame, type Screen } from '../store/gameStore.ts';
 import { ErrorBoundary } from './ErrorBoundary.tsx';
+import { useSettings } from '../store/settingsStore.ts';
+import { setSoundEnabled, sfx, unlockAudio } from '../game/sound.ts';
+
+/** Global sound wiring: unlock on first gesture, button clicks/hovers, screen swooshes. */
+function useGameSounds(screen: Screen) {
+  const sound = useSettings((s) => s.sound);
+  useEffect(() => setSoundEnabled(sound), [sound]);
+  useEffect(() => {
+    const unlock = () => unlockAudio();
+    const onClick = (e: MouseEvent) => {
+      const btn = (e.target as Element | null)?.closest?.('button, [role="button"], a');
+      if (!btn || btn.hasAttribute('disabled') || (btn as HTMLElement).dataset.sfx === 'none')
+        return;
+      sfx(btn.classList.contains('big-btn') ? 'confirm' : 'click');
+    };
+    const onOver = (e: MouseEvent) => {
+      const btn = (e.target as Element | null)?.closest?.('.big-btn, .tool-btn');
+      if (btn && !btn.contains(e.relatedTarget as Node | null)) sfx('hover', 60);
+    };
+    window.addEventListener('pointerdown', unlock, true);
+    window.addEventListener('keydown', unlock, true);
+    document.addEventListener('click', onClick, true);
+    document.addEventListener('mouseover', onOver);
+    return () => {
+      window.removeEventListener('pointerdown', unlock, true);
+      window.removeEventListener('keydown', unlock, true);
+      document.removeEventListener('click', onClick, true);
+      document.removeEventListener('mouseover', onOver);
+    };
+  }, []);
+  const first = useRef(true);
+  useEffect(() => {
+    if (first.current) {
+      first.current = false;
+      return;
+    }
+    sfx('whoosh');
+  }, [screen]);
+}
 
 const SCREENS: Record<Screen, () => React.JSX.Element | null> = {
   login: Login,
@@ -37,6 +76,7 @@ export function App() {
   const player = useGame((s) => s.player);
   const [notice, setNotice] = useState<string | null>(() => takeStorageNotice());
   const current: Screen = player ? screen : 'login';
+  useGameSounds(current);
 
   useEffect(() => {
     document.title = `${TITLES[current]} · Rocket Builder`;
